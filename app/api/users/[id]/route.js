@@ -23,7 +23,7 @@ export async function GET(req, { params }) {
 
     // Récupérer les commandes avec .lean() aussi
     const orders = await Order.find({
-      user: new mongoose.Types.ObjectId(user._id),
+      "user.userId": user._id,
     })
       .select(
         "orderNumber totalAmount paymentInfo.typePayment paymentStatus createdAt paidAt",
