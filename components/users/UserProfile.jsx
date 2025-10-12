@@ -310,7 +310,7 @@ const UserProfile = ({ data }) => {
                           )}
                         </span>
                         <a
-                          href={`/admin/products/${favorite.productId}`}
+                          href={`/admin/products/${favorite.productId}/profile`}
                           className="text-pink-600 hover:text-pink-700 font-medium text-sm flex items-center gap-1"
                         >
                           Voir
