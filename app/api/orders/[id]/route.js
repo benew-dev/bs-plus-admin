@@ -14,13 +14,13 @@ export async function GET(req, { params }) {
   await isAuthenticatedUser(req, NextResponse);
 
   // Vérifier le role
-  await authorizeRoles(NextResponse, "admin");
+  authorizeRoles(NextResponse, "admin");
 
   const { id } = params;
 
   await dbConnect();
 
-  const order = await Order.findById(id).populate("user", "name phone email");
+  const order = await Order.find({ "user.userId": id });
 
   if (!order) {
     return NextResponse.json({ message: "No Order found" }, { status: 404 });
@@ -34,14 +34,14 @@ export async function PUT(req, { params }) {
   await isAuthenticatedUser(req, NextResponse);
 
   // Vérifier le role
-  await authorizeRoles(NextResponse, "admin");
+  authorizeRoles(NextResponse, "admin");
 
   const { id } = params;
   const body = await req.json();
 
   await dbConnect();
 
-  let order = await Order.findById(id);
+  let order = await Order.find({ "user.userId": id });
 
   if (!order) {
     return NextResponse.json({ message: "No Order found" }, { status: 404 });
@@ -249,7 +249,7 @@ export async function PUT(req, { params }) {
     await order.save();
 
     // Récupérer l'ordre mis à jour
-    order = await Order.findById(id);
+    order = await Order.find({ "user.userId": id });
   }
 
   return NextResponse.json(
