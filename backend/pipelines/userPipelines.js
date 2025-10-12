@@ -42,7 +42,7 @@ export const getUserAnalytics = async (month = null, year = null) => {
         $facet: {
           // Total des utilisateurs uniques ayant acheté
           uniqueBuyers: [
-            { $group: { _id: "$user" } },
+            { $group: { _id: "$user.userId" } },
             { $count: "totalUsers" },
           ],
 
@@ -50,7 +50,7 @@ export const getUserAnalytics = async (month = null, year = null) => {
           topBuyers: [
             {
               $group: {
-                _id: "$user",
+                _id: "$user.userId",
                 totalSpent: { $sum: "$totalAmount" },
                 totalOrders: { $sum: 1 },
                 avgOrderValue: { $avg: "$totalAmount" },
@@ -380,7 +380,7 @@ export const getTopCustomersWithDetails = async (options = {}) => {
       { $match: matchStage },
       {
         $group: {
-          _id: "$user",
+          _id: "$user.userId",
           totalSpent: { $sum: "$totalAmount" },
           orderCount: { $sum: 1 },
           avgOrderValue: { $avg: "$totalAmount" },
