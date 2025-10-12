@@ -11,6 +11,12 @@ import APIFilters from "@/backend/utils/APIFilters";
 import { NextResponse } from "next/server";
 
 export async function GET(req) {
+  // Vérifier l'authentification
+  await isAuthenticatedUser(req, NextResponse);
+
+  // Vérifier le role
+  authorizeRoles(NextResponse, "admin");
+
   // Connexion DB
   await dbConnect();
 

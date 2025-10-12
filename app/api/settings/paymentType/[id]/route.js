@@ -1,8 +1,14 @@
-import dbConnect from '@/backend/config/dbConnect';
-import PaymentType from '@/backend/models/paymentType';
-import { NextResponse } from 'next/server';
+import dbConnect from "@/backend/config/dbConnect";
+import PaymentType from "@/backend/models/paymentType";
+import { NextResponse } from "next/server";
 
 export async function DELETE(req, { params }) {
+  // Vérifier l'authentification
+  await isAuthenticatedUser(req, NextResponse);
+
+  // Vérifier le role
+  authorizeRoles(NextResponse, "admin");
+
   const { id } = params;
 
   await dbConnect();
@@ -11,7 +17,7 @@ export async function DELETE(req, { params }) {
 
   if (!payment) {
     return NextResponse.json(
-      { message: 'Payment platform not found.' },
+      { message: "Payment platform not found." },
       { status: 404 },
     );
   }
@@ -20,7 +26,7 @@ export async function DELETE(req, { params }) {
 
   return NextResponse.json(
     {
-      message: 'Payment platform deleted successfully.',
+      message: "Payment platform deleted successfully.",
     },
     { status: 200 },
   );

@@ -6,6 +6,12 @@ import { NextResponse } from "next/server";
 import Cart from "@/backend/models/cart";
 
 export async function GET(req, { params }) {
+  // Vérifier l'authentification
+  await isAuthenticatedUser(req, NextResponse);
+
+  // Vérifier le role
+  authorizeRoles(NextResponse, "admin");
+
   const { id } = await params;
 
   try {
@@ -62,6 +68,12 @@ export async function GET(req, { params }) {
 }
 
 export async function PUT(req, { params }) {
+  // Vérifier l'authentification
+  await isAuthenticatedUser(req, NextResponse);
+
+  // Vérifier le role
+  authorizeRoles(NextResponse, "admin");
+
   const { id } = await params;
 
   try {
@@ -103,6 +115,12 @@ export async function PUT(req, { params }) {
 }
 
 export async function DELETE(req, { params }) {
+  // Vérifier l'authentification
+  await isAuthenticatedUser(req, NextResponse);
+
+  // Vérifier le role
+  authorizeRoles(NextResponse, "admin");
+
   const { id } = await params;
 
   try {
