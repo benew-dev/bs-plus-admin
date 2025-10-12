@@ -24,6 +24,7 @@
     "react-responsive-pagination": "^2.11.3",
     "react-spinners": "^0.17.0",
     "react-toastify": "^11.0.5",
+    "recharts": "^3.2.1",
     "server-only": "^0.0.1",
     "winston": "^3.18.3",
     "yup": "^1.7.1"
