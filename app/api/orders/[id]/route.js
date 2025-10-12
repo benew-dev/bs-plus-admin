@@ -20,7 +20,11 @@ export async function GET(req, { params }) {
 
   await dbConnect();
 
+  console.log("Order Id", id);
+
   const order = await Order.find({ "user.userId": id });
+
+  console.log("Order Found", order);
 
   if (!order) {
     return NextResponse.json({ message: "No Order found" }, { status: 404 });
@@ -41,7 +45,11 @@ export async function PUT(req, { params }) {
 
   await dbConnect();
 
+  console.log("Order Id", id);
+
   let order = await Order.find({ "user.userId": id });
+
+  console.log("Order Found", order);
 
   if (!order) {
     return NextResponse.json({ message: "No Order found" }, { status: 404 });
@@ -250,6 +258,7 @@ export async function PUT(req, { params }) {
 
     // Récupérer l'ordre mis à jour
     order = await Order.find({ "user.userId": id });
+    console.log("Order Updated", order);
   }
 
   return NextResponse.json(
