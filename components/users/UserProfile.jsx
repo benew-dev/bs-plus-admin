@@ -5,6 +5,7 @@ import React from "react";
 const UserProfile = ({ data }) => {
   const user = data?.user;
   const orders = data?.orders || [];
+  const favorites = user?.favorites || [];
 
   // Formater la date
   const formatDate = (date) => {
@@ -87,6 +88,14 @@ const UserProfile = ({ data }) => {
                   </div>
                   <div className="text-xs text-slate-500 uppercase">
                     Total dépensé
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-pink-600">
+                    {favorites.length}
+                  </div>
+                  <div className="text-xs text-slate-500 uppercase">
+                    Favoris
                   </div>
                 </div>
               </div>
@@ -218,6 +227,114 @@ const UserProfile = ({ data }) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* Section Produits Favoris */}
+        <div className="bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden mb-6">
+          <div className="bg-gradient-to-r from-pink-50 to-rose-100 px-6 py-4 border-b border-slate-200">
+            <div className="flex justify-between items-center">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center">
+                  <svg
+                    className="w-5 h-5 text-pink-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                </div>
+                <h2 className="text-xl font-bold text-slate-800">
+                  Produits Favoris
+                </h2>
+              </div>
+              <span className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm font-semibold">
+                {favorites.length} favori{favorites.length !== 1 ? "s" : ""}
+              </span>
+            </div>
+          </div>
+
+          {favorites.length === 0 ? (
+            <div className="py-16 text-center">
+              <div className="w-20 h-20 mx-auto mb-4 bg-pink-100 rounded-full flex items-center justify-center">
+                <svg
+                  className="w-10 h-10 text-pink-400"
+                  fill="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                </svg>
+              </div>
+              <p className="text-lg font-semibold text-slate-600 mb-2">
+                Aucun produit favori
+              </p>
+              <p className="text-sm text-slate-500">
+                Cet utilisateur n'a pas encore ajouté de produits à ses favoris.
+              </p>
+            </div>
+          ) : (
+            <div className="p-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                {favorites.map((favorite) => (
+                  <div
+                    key={favorite.productId}
+                    className="bg-white border border-slate-200 rounded-lg overflow-hidden hover:shadow-lg transition-all hover:-translate-y-1 group"
+                  >
+                    <div className="relative h-48 bg-slate-100 overflow-hidden">
+                      <img
+                        src={
+                          favorite.productImage?.url ||
+                          "/images/default-product.png"
+                        }
+                        alt={favorite.productName}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                      <div className="absolute top-2 right-2 bg-pink-500 text-white p-2 rounded-full shadow-lg">
+                        <svg
+                          className="w-4 h-4"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-semibold text-slate-800 mb-2 line-clamp-2 group-hover:text-pink-600 transition-colors">
+                        {favorite.productName}
+                      </h3>
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-slate-500">
+                          Ajouté le{" "}
+                          {new Date(favorite.addedAt).toLocaleDateString(
+                            "fr-FR",
+                          )}
+                        </span>
+                        <a
+                          href={`/admin/products/${favorite.productId}`}
+                          className="text-pink-600 hover:text-pink-700 font-medium text-sm flex items-center gap-1"
+                        >
+                          Voir
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5l7 7-7 7"
+                            />
+                          </svg>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {/* Tableau des commandes */}

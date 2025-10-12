@@ -1,7 +1,6 @@
 import dbConnect from "@/backend/config/dbConnect";
 import Order from "@/backend/models/order";
 import User from "@/backend/models/user";
-import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 import Cart from "@/backend/models/cart";
 import {
@@ -40,7 +39,7 @@ export async function GET(req, { params }) {
       )
       .sort({ createdAt: -1 })
       .limit(50)
-      .lean(); // ✅ Ajout de .lean()
+      .lean();
 
     // ✅ Supprimer manuellement les champs sensibles (plus besoin de toObject())
     delete user.password;
@@ -60,6 +59,7 @@ export async function GET(req, { params }) {
       user: user,
       orders,
       orderCount: orders.length,
+      favoritesCount: user.favorites?.length || 0, // ✅ Ajout du compteur de favoris
     });
   } catch (error) {
     console.error("Error in getUser:", error);
