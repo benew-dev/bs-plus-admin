@@ -1,4 +1,4 @@
-// backend/pipelines/dailyPipelines.js - NOUVEAU
+// backend/pipelines/dailyPipelines.js - CORRIGÉ
 
 /**
  * Pipeline optimisé pour volume modéré (500 visites/jour)
@@ -6,7 +6,7 @@
  */
 
 import Order from "../models/order";
-import Product from "../models/order";
+import Product from "../models/product"; // CORRECTION ICI
 
 export const getDailySummary = async () => {
   const today = new Date().setHours(0, 0, 0, 0);

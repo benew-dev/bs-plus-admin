@@ -1,5 +1,3 @@
-// components/dashboard/MainDashboard.jsx
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -8,25 +6,58 @@ import DailyCards from "./DailyCards";
 import SimpleLineChart from "../charts/SimpleLineChart";
 import SimpleBarChart from "../charts/SimpleBarChart";
 
+// Composant Loading
+function Loading() {
+  return (
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Chargement du dashboard...</p>
+      </div>
+    </div>
+  );
+}
+
 export default function MainDashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     fetch("/api/dashboard")
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur lors du chargement");
+        return res.json();
+      })
       .then((data) => {
         setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
         setLoading(false);
       });
   }, []);
 
   if (loading) return <Loading />;
 
+  if (error) {
+    return (
+      <div className="p-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800 font-semibold">Erreur de chargement</p>
+          <p className="text-red-600 text-sm mt-1">{error}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data) return null;
+
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 p-6">
       {/* Date + Heure */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-lg">
         <h1 className="text-2xl font-bold">Bonjour Admin 👋</h1>
         <p className="text-blue-100 mt-1">
           {new Date().toLocaleDateString("fr-FR", {
@@ -71,7 +102,7 @@ export default function MainDashboard() {
       {/* Semaine */}
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <h2 className="text-xl font-bold mb-4">📅 Cette Semaine</h2>
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <p className="text-sm text-gray-500">Commandes</p>
             <p className="text-3xl font-bold text-blue-600">

@@ -1,9 +1,11 @@
-// components/dashboard/AlertsPanel.jsx
+"use client";
 
-const AlertsPanel = ({ alerts }) => {
+import Link from "next/link";
+
+export default function AlertsPanel({ alerts }) {
   if (!alerts || alerts.length === 0) {
     return (
-      <div className="bg-green-50 border-l-4 border-green-500 p-4">
+      <div className="bg-green-50 border-l-4 border-green-500 p-4 rounded-r-lg">
         <div className="flex items-center">
           <span className="text-2xl mr-3">✅</span>
           <div>
@@ -25,6 +27,7 @@ const AlertsPanel = ({ alerts }) => {
 
   return (
     <div className="space-y-3">
+      <h2 className="text-xl font-bold mb-4">⚠️ Alertes</h2>
       {sorted.map((alert, index) => (
         <div
           key={index}
@@ -54,7 +57,7 @@ const AlertsPanel = ({ alerts }) => {
             {alert.action && (
               <Link
                 href={alert.action}
-                className="ml-4 px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50"
+                className="ml-4 px-3 py-1 bg-white border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors"
               >
                 {alert.actionText}
               </Link>
@@ -64,4 +67,4 @@ const AlertsPanel = ({ alerts }) => {
       ))}
     </div>
   );
-};
+}

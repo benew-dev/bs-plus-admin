@@ -1,32 +1,29 @@
-// app/api/dashboard/route.js - CORRIGÉ
+// app/api/insights/route.js
 
 import { NextResponse } from "next/server";
 import connectDB from "@/backend/config/dbConnect";
 import {
-  getDailySummary,
-  getWeeklySummary,
-} from "@/backend/pipelines/dailyPipelines";
-import { getDailyAlerts } from "@/backend/utils/alerts";
+  generateInsights,
+  generateRecommendations,
+} from "@/backend/utils/insights";
 
 export async function GET(req) {
   try {
     await connectDB();
 
-    const [summary, weekly, alerts] = await Promise.all([
-      getDailySummary(),
-      getWeeklySummary(),
-      getDailyAlerts(),
+    const [insights, recommendations] = await Promise.all([
+      generateInsights(),
+      generateRecommendations(),
     ]);
 
     return NextResponse.json({
       success: true,
-      summary,
-      weekly,
-      alerts,
+      insights,
+      recommendations,
       timestamp: new Date(),
     });
   } catch (error) {
-    console.error("Dashboard API Error:", error);
+    console.error("Insights API Error:", error);
     return NextResponse.json(
       {
         success: false,

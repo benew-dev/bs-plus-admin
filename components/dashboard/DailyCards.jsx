@@ -1,4 +1,4 @@
-// components/dashboard/DailyCards.jsx
+"use client";
 
 export default function DailyCards({ data }) {
   const cards = [
@@ -8,7 +8,8 @@ export default function DailyCards({ data }) {
       change: data.today.comparison.ordersChange,
       changePercent: data.today.comparison.ordersChangePercent,
       icon: "🛍️",
-      color: "blue",
+      bgColor: "bg-blue-50",
+      borderColor: "border-blue-200",
     },
     {
       title: "Revenus",
@@ -16,13 +17,15 @@ export default function DailyCards({ data }) {
       change: data.today.comparison.revenueChange,
       changePercent: data.today.comparison.revenueChangePercent,
       icon: "💰",
-      color: "green",
+      bgColor: "bg-green-50",
+      borderColor: "border-green-200",
     },
     {
       title: "En attente",
       value: data.alerts.unpaidOrders,
       icon: "⏳",
-      color: "orange",
+      bgColor: "bg-orange-50",
+      borderColor: "border-orange-200",
     },
   ];
 
@@ -31,7 +34,7 @@ export default function DailyCards({ data }) {
       {cards.map((card, index) => (
         <div
           key={index}
-          className={`bg-${card.color}-50 border-2 border-${card.color}-200 rounded-xl p-6`}
+          className={`${card.bgColor} border-2 ${card.borderColor} rounded-xl p-6`}
         >
           <div className="flex justify-between items-start mb-2">
             <p className="text-sm font-semibold text-gray-700">{card.title}</p>

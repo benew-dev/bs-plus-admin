@@ -1,34 +1,10 @@
-import React from "react";
-import dynamic from "next/dynamic";
-import Loading from "../loading";
-
-const Overview = dynamic(() => import("@/components/overview/Overview"), {
-  loading: () => <Loading />,
-});
-
-import {
-  getAllOrders,
-  getCategoryData,
-  getPaymentTypeData,
-} from "@/backend/utils/server-only-methods";
+import MainDashboard from "@/components/dashboard/MainDashboard";
 
 export const metadata = {
-  title: "Dashboard - Overview",
+  title: "Dashboard Admin - Vue d'ensemble",
+  description: "Tableau de bord administrateur avec statistiques et alertes",
 };
 
-// eslint-disable-next-line react/prop-types
-const HomePage = async ({ searchParams }) => {
-  const orders = await getAllOrders(await searchParams);
-  const categoryData = await getCategoryData();
-  const paymentTypeData = await getPaymentTypeData();
-
-  return (
-    <Overview
-      orders={orders}
-      categories={categoryData?.categories}
-      paymentTypes={paymentTypeData?.paymentTypes}
-    />
-  );
-};
-
-export default HomePage;
+export default function AdminPage() {
+  return <MainDashboard />;
+}

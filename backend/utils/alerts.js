@@ -1,6 +1,7 @@
-// backend/utils/alerts.js - À CRÉER
+// backend/utils/alerts.js - CORRIGÉ
+
 import Order from "../models/order";
-import Product from "../models/order";
+import Product from "../models/product"; // CORRECTION ICI
 
 export const getDailyAlerts = async () => {
   const alerts = [];
@@ -35,7 +36,7 @@ export const getDailyAlerts = async () => {
       title: "📦 Stock faible",
       message: `${lowStock.length} produits en stock critique`,
       details: lowStock.map((p) => `${p.name}: ${p.stock} unités`),
-      action: "/admin/products?stock=less",
+      action: "/admin/products?stock=low",
       actionText: "Voir les produits",
     });
   }
