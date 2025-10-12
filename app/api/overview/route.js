@@ -1,4 +1,8 @@
 import dbConnect from "@/backend/config/dbConnect";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 import Order from "@/backend/models/order";
 import { getMonthlyOrdersAnalytics } from "@/backend/pipelines/orderPipelines";
 import {

@@ -4,6 +4,10 @@ import User from "@/backend/models/user";
 import mongoose from "mongoose";
 import { NextResponse } from "next/server";
 import Cart from "@/backend/models/cart";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 
 export async function GET(req, { params }) {
   // Vérifier l'authentification

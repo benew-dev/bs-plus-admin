@@ -1,4 +1,8 @@
 import dbConnect from "@/backend/config/dbConnect";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 import Category from "@/backend/models/category";
 import Product from "@/backend/models/product";
 import { NextResponse } from "next/server";
