@@ -5,6 +5,34 @@ import queryString from "query-string";
 import axios from "axios";
 import { getCookieName } from "@/helpers/helpers";
 
+/**
+ * Récupérer les données de la page d'accueil
+ */
+export const getHomePageData = async () => {
+  try {
+    await connectDB();
+
+    const homePage = await HomePage.findOne().sort({ createdAt: -1 }).lean();
+
+    return homePage
+      ? JSON.parse(JSON.stringify(homePage))
+      : {
+          title: "",
+          subtitle: "",
+          text: "",
+          image: null,
+        };
+  } catch (error) {
+    console.error("Error fetching homepage data:", error);
+    return {
+      title: "",
+      subtitle: "",
+      text: "",
+      image: null,
+    };
+  }
+};
+
 export const getAllOrders = async (searchParams) => {
   const nextCookies = await cookies();
 

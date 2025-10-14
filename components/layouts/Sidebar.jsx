@@ -191,6 +191,19 @@ const Sidebar = memo(() => {
           </li>
 
           <li>
+            <Link
+              onClick={() => setActivePart("")}
+              href="/admin/homepage"
+              className={`flex gap-2 text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/homepage" && "bg-blue-100"}`}
+            >
+              <span>
+                <i className="fa fa-home" aria-hidden="true"></i>
+              </span>
+              <span>Home Page</span>
+            </Link>
+          </li>
+
+          <li>
             {" "}
             <Link
               onClick={() => setActivePart("")}
