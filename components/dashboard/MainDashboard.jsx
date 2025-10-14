@@ -6,7 +6,6 @@ import DailyCards from "./DailyCards";
 import SimpleLineChart from "../charts/SimpleLineChart";
 import SimpleBarChart from "../charts/SimpleBarChart";
 import InsightsPanel from "./InsightsPanel";
-import SimpleDonutChart from "../charts/SimpleDonutChart";
 
 export default function MainDashboard({ data, insights }) {
   if (!data) {
