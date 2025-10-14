@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 "use client";
 
+import ComparisonChart from "@/components/charts/ComparisonChart";
+
 export default function WeeklySummary({ data }) {
   if (!data) {
     return (
@@ -17,6 +19,13 @@ export default function WeeklySummary({ data }) {
   }
 
   const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
+
+  // Préparer les données pour le graphique de comparaison
+  const comparisonData = data.dailyBreakdown.map((day) => ({
+    name: dayNames[day._id - 1],
+    current: day.revenue,
+    previous: 0, // Tu peux ajouter les données de la semaine précédente si disponibles
+  }));
 
   return (
     <div className="bg-white rounded-xl p-6 shadow-lg">
@@ -91,6 +100,14 @@ export default function WeeklySummary({ data }) {
           </div>
         </div>
       )}
+
+      {/* Graphique de comparaison */}
+      <div className="mb-6 bg-gray-50 rounded-lg p-4">
+        <ComparisonChart
+          title="Revenus par jour de la semaine"
+          data={comparisonData}
+        />
+      </div>
 
       {/* Répartition par jour */}
       <div className="mb-6">
