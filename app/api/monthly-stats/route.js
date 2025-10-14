@@ -4,6 +4,7 @@ import { NextResponse } from "next/server";
 import connectDB from "@/backend/config/dbConnect";
 import {
   getMonthlyAnalytics,
+  getDormantProducts,
   getMonthlyForecast,
 } from "@/backend/pipelines/monthlyPipelines";
 
@@ -11,14 +12,16 @@ export async function GET(req) {
   try {
     await connectDB();
 
-    const [analytics, forecast] = await Promise.all([
+    const [monthlyData, dormantProducts, forecast] = await Promise.all([
       getMonthlyAnalytics(),
+      getDormantProducts(30),
       getMonthlyForecast(),
     ]);
 
     return NextResponse.json({
       success: true,
-      ...analytics,
+      ...monthlyData,
+      dormantProducts,
       forecast,
       timestamp: new Date(),
     });

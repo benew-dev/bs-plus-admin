@@ -1,26 +1,10 @@
+/* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useEffect } from "react";
 import SimpleLineChart from "../charts/SimpleLineChart";
 
-export default function MonthlySummary() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/monthly-stats")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error loading monthly stats:", err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+export default function MonthlySummary({ data }) {
+  if (!data) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <div className="animate-pulse space-y-4">
@@ -30,8 +14,6 @@ export default function MonthlySummary() {
       </div>
     );
   }
-
-  if (!data) return null;
 
   return (
     <div className="bg-white rounded-xl p-6 shadow-lg">

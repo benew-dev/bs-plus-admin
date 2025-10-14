@@ -308,3 +308,43 @@ export const getInsightsData = async () => {
 
   return data;
 };
+
+// À ajouter dans backend/utils/server-only-methods.js
+
+// MÉTHODE POUR LES STATISTIQUES HEBDOMADAIRES
+export const getWeeklyStats = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/weekly-stats`,
+    {
+      headers: {
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+      },
+    },
+  );
+
+  return data;
+};
+
+// MÉTHODE POUR LES STATISTIQUES MENSUELLES
+export const getMonthlyStats = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/monthly-stats`,
+    {
+      headers: {
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+      },
+    },
+  );
+
+  return data;
+};

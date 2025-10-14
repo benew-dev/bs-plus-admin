@@ -11,15 +11,15 @@ export async function GET(req) {
   try {
     await connectDB();
 
-    const [analytics, bestDay] = await Promise.all([
+    const [weeklyData, bestDay] = await Promise.all([
       getWeeklyAnalytics(),
       getBestDayOfWeek(),
     ]);
 
     return NextResponse.json({
       success: true,
-      ...analytics,
-      bestDay,
+      ...weeklyData,
+      bestDayOfWeek: bestDay,
       timestamp: new Date(),
     });
   } catch (error) {

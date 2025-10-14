@@ -1,25 +1,8 @@
+/* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useEffect } from "react";
-
-export default function WeeklySummary() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/weekly-stats")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error loading weekly stats:", err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+export default function WeeklySummary({ data }) {
+  if (!data) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <div className="animate-pulse">
@@ -32,8 +15,6 @@ export default function WeeklySummary() {
       </div>
     );
   }
-
-  if (!data) return null;
 
   const dayNames = ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"];
 
@@ -92,6 +73,24 @@ export default function WeeklySummary() {
           </p>
         </div>
       </div>
+
+      {/* Meilleur jour historique */}
+      {data.bestDayOfWeek && (
+        <div className="bg-yellow-50 border-l-4 border-yellow-500 p-4 mb-6 rounded-r-lg">
+          <div className="flex items-center">
+            <span className="text-2xl mr-3">⭐</span>
+            <div>
+              <p className="font-bold text-yellow-800">
+                Meilleur jour historique
+              </p>
+              <p className="text-sm text-yellow-700">
+                {data.bestDayOfWeek.day} génère en moyenne{" "}
+                {Math.round(data.bestDayOfWeek.avgRevenue)} FDj
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Répartition par jour */}
       <div className="mb-6">
