@@ -8,9 +8,6 @@ import { getCookieName } from "@/helpers/helpers";
 export const getAllOrders = async (searchParams) => {
   const nextCookies = await cookies();
 
-  /***** In Development Mode, cookie name is "next-auth.session-token" *****/
-  /***** In Production Mode, cookie name is "__Secure-next-auth.session-token" *****/
-
   const nextAuthSessionToken = nextCookies.get(
     "__Secure-next-auth.session-token",
   );
@@ -38,9 +35,6 @@ export const getAllOrders = async (searchParams) => {
 
 export const getOrdersInfo = async (searchParams) => {
   const nextCookies = await cookies();
-
-  /***** In Development Mode, cookie name is "next-auth.session-token" *****/
-  /***** In Production Mode, cookie name is "__Secure-next-auth.session-token" *****/
 
   const nextAuthSessionToken = nextCookies.get(
     "__Secure-next-auth.session-token",
@@ -266,6 +260,25 @@ export const getSingleUser = async (id) => {
 
   const { data } = await axios.get(
     `${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`,
+    {
+      headers: {
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+      },
+    },
+  );
+
+  return data;
+};
+
+// NOUVELLE MÉTHODE POUR LE DASHBOARD
+export const getDashboardData = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/dashboard`,
     {
       headers: {
         Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,

@@ -1,58 +1,22 @@
+/* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useEffect } from "react";
 import AlertsPanel from "./AlertsPanel";
 import DailyCards from "./DailyCards";
 import SimpleLineChart from "../charts/SimpleLineChart";
 import SimpleBarChart from "../charts/SimpleBarChart";
 
-// Composant Loading
-function Loading() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-blue-600 mx-auto"></div>
-        <p className="mt-4 text-gray-600">Chargement du dashboard...</p>
-      </div>
-    </div>
-  );
-}
-
-export default function MainDashboard() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    fetch("/api/dashboard")
-      .then((res) => {
-        if (!res.ok) throw new Error("Erreur lors du chargement");
-        return res.json();
-      })
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <Loading />;
-
-  if (error) {
+export default function MainDashboard({ data }) {
+  if (!data) {
     return (
       <div className="p-6">
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-800 font-semibold">Erreur de chargement</p>
-          <p className="text-red-600 text-sm mt-1">{error}</p>
+          <p className="text-red-600 text-sm mt-1">Aucune donnée disponible</p>
         </div>
       </div>
     );
   }
-
-  if (!data) return null;
 
   return (
     <div className="space-y-6 p-6">
