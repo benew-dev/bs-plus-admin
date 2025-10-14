@@ -1,26 +1,10 @@
+/* eslint-disable react/prop-types */
 "use client";
 
-import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export default function InsightsPanel() {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetch("/api/insights")
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error("Error loading insights:", err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) {
+export default function InsightsPanel({ insights }) {
+  if (!insights) {
     return (
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <div className="animate-pulse space-y-3">
@@ -32,17 +16,15 @@ export default function InsightsPanel() {
     );
   }
 
-  if (!data) return null;
-
   return (
     <div className="space-y-6">
       {/* Insights automatiques */}
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <h2 className="text-xl font-bold mb-4">💡 Insights</h2>
 
-        {data.insights && data.insights.length > 0 ? (
+        {insights.insights && insights.insights.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {data.insights.map((insight, index) => (
+            {insights.insights.map((insight, index) => (
               <div
                 key={index}
                 className={`p-4 rounded-lg border-2 ${
@@ -83,9 +65,9 @@ export default function InsightsPanel() {
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <h2 className="text-xl font-bold mb-4">🎯 Recommandations</h2>
 
-        {data.recommendations && data.recommendations.length > 0 ? (
+        {insights.recommendations && insights.recommendations.length > 0 ? (
           <div className="space-y-3">
-            {data.recommendations.map((rec, index) => (
+            {insights.recommendations.map((rec, index) => (
               <div
                 key={index}
                 className={`p-4 rounded-lg border-l-4 ${

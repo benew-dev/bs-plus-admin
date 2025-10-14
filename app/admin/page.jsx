@@ -9,7 +9,10 @@ const MainDashboard = dynamic(
   },
 );
 
-import { getDashboardData } from "@/backend/utils/server-only-methods";
+import {
+  getDashboardData,
+  getInsightsData,
+} from "@/backend/utils/server-only-methods";
 
 export const metadata = {
   title: "Dashboard Admin - Vue d'ensemble",
@@ -18,8 +21,9 @@ export const metadata = {
 
 const AdminPage = async () => {
   const dashboardData = await getDashboardData();
+  const insightsData = await getInsightsData();
 
-  return <MainDashboard data={dashboardData} />;
+  return <MainDashboard data={dashboardData} insights={insightsData} />;
 };
 
 export default AdminPage;

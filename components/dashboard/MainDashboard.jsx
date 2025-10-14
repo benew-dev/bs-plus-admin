@@ -5,8 +5,10 @@ import AlertsPanel from "./AlertsPanel";
 import DailyCards from "./DailyCards";
 import SimpleLineChart from "../charts/SimpleLineChart";
 import SimpleBarChart from "../charts/SimpleBarChart";
+import InsightsPanel from "./InsightsPanel";
+import SimpleDonutChart from "../charts/SimpleDonutChart";
 
-export default function MainDashboard({ data }) {
+export default function MainDashboard({ data, insights }) {
   if (!data) {
     return (
       <div className="p-6">
@@ -41,6 +43,9 @@ export default function MainDashboard({ data }) {
         <h2 className="text-xl font-bold mb-4">📊 Aujourd'hui vs Hier</h2>
         <DailyCards data={data.summary} />
       </div>
+
+      {/* Insights et Recommandations */}
+      <InsightsPanel insights={insights} />
 
       {/* Graphiques */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

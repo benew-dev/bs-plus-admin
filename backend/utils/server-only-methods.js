@@ -288,3 +288,23 @@ export const getDashboardData = async () => {
 
   return data;
 };
+
+// À ajouter dans backend/utils/server-only-methods.js
+
+export const getInsightsData = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
+  const { data } = await axios.get(
+    `${process.env.NEXT_PUBLIC_API_URL}/api/insights`,
+    {
+      headers: {
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+      },
+    },
+  );
+
+  return data;
+};
