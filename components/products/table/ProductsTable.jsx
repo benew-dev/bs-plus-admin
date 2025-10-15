@@ -6,6 +6,7 @@ import { arrayHasData } from "@/helpers/helpers";
 import Image from "next/image";
 import Link from "next/link";
 import ProductContext from "@/context/ProductContext";
+import StockIndicator from "../StockIndicator"; // ← AJOUTÉ
 
 const ProductsTable = ({ products, itemCount, deleteHandler }) => {
   const { setProductImages } = useContext(ProductContext);
@@ -134,20 +135,9 @@ const ProductsTable = ({ products, itemCount, deleteHandler }) => {
                     </div>
                   </td>
 
-                  {/* Stock */}
+                  {/* Stock - REMPLACÉ PAR StockIndicator */}
                   <td className="px-6 py-3">
-                    <div
-                      className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full font-semibold text-sm ${
-                        product?.stock <= 5
-                          ? "bg-red-100 text-red-700 border border-red-200"
-                          : "bg-green-100 text-green-700 border border-green-200"
-                      }`}
-                    >
-                      <i
-                        className={`fa ${product?.stock <= 5 ? "fa-exclamation-triangle" : "fa-check-circle"} text-xs`}
-                      ></i>
-                      {product?.stock}
-                    </div>
+                    <StockIndicator stock={product?.stock} threshold={5} />
                   </td>
 
                   {/* Vendus */}

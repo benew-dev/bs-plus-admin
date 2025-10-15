@@ -2,6 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import PaymentBox from "./PaymentBox";
+import UnpaidIndicator from "../UnpaidIndicator"; // ← AJOUTÉ
 
 const OrderItem = ({ order }) => {
   // Formater la date de création
@@ -49,8 +50,19 @@ const OrderItem = ({ order }) => {
         </div>
       </td>
 
-      {/* Statut de paiement */}
-      <PaymentBox order={order} />
+      {/* Statut de paiement avec indicateur de délai */}
+      <td className="px-4 py-3">
+        <div className="flex flex-col gap-2">
+          {/* Select de statut */}
+          <PaymentBox order={order} />
+
+          {/* Indicateur de délai pour commandes impayées */}
+          <UnpaidIndicator
+            createdAt={order?.createdAt}
+            paymentStatus={order?.paymentStatus}
+          />
+        </div>
+      </td>
 
       {/* Méthode de paiement */}
       <td className="px-4 py-3">
