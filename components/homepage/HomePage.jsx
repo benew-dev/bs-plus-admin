@@ -78,7 +78,7 @@ export default function HomePage({ data }) {
             </div>
           </div>
           <Link
-            href="/admin/homepage/new"
+            href="/admin/homepage/edit"
             className="flex items-center gap-2 px-6 py-3 bg-white text-indigo-600 rounded-xl hover:bg-white/90 transition-all shadow-lg font-semibold"
           >
             <svg

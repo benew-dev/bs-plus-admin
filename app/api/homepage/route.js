@@ -25,10 +25,24 @@ export async function GET(req) {
   }
 }
 
-// POST - Créer ou mettre à jour la page d'accueil
+// POST - Créer une page d'accueil (uniquement si aucune n'existe)
 export async function POST(req) {
   try {
     await connectDB();
+
+    // Vérifier si une page d'accueil existe déjà
+    const existingHomePage = await HomePage.findOne();
+
+    if (existingHomePage) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Une page d'accueil existe déjà. Veuillez la modifier au lieu d'en créer une nouvelle.",
+        },
+        { status: 400 },
+      );
+    }
 
     const body = await req.json();
     const { title, subtitle, text, image } = body;
@@ -44,21 +58,13 @@ export async function POST(req) {
       );
     }
 
-    // Créer ou mettre à jour (on garde une seule page d'accueil)
-    const homePage = await HomePage.findOneAndUpdate(
-      {},
-      {
-        title,
-        subtitle,
-        text,
-        image,
-      },
-      {
-        new: true,
-        upsert: true,
-        runValidators: true,
-      },
-    );
+    // Créer la page d'accueil
+    const homePage = await HomePage.create({
+      title,
+      subtitle,
+      text,
+      image,
+    });
 
     return NextResponse.json({
       success: true,
@@ -84,6 +90,17 @@ export async function PUT(req) {
 
     const body = await req.json();
     const { title, subtitle, text, image } = body;
+
+    // Validation
+    if (!title || !subtitle || !text || !image) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Tous les champs sont requis",
+        },
+        { status: 400 },
+      );
+    }
 
     const homePage = await HomePage.findOneAndUpdate(
       {},
