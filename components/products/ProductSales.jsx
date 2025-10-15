@@ -42,31 +42,31 @@ const ProductSales = ({ data }) => {
   };
 
   return (
-    <div className="relative overflow-x-auto">
-      {/* Header amélioré avec gradient */}
-      <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-t-lg shadow-lg p-6 mb-6">
-        <div className="flex justify-between items-center">
+    <div className="relative overflow-x-hidden">
+      {/* Header amélioré avec gradient - RESPONSIVE */}
+      <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
               Statistiques de Ventes
             </h1>
-            <p className="text-purple-100 text-sm">
+            <p className="text-purple-100 text-xs sm:text-sm">
               Analysez les performances de vos produits et catégories
             </p>
           </div>
           <button
             title="Afficher les statistiques"
             onClick={() => setOpen((prev) => !prev)}
-            className="px-4 py-2.5 bg-white text-purple-600 font-medium rounded-lg hover:bg-purple-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
+            className="w-full sm:w-auto px-4 py-2.5 bg-white text-purple-600 font-medium rounded-lg hover:bg-purple-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
           >
             <i className="fa fa-chart-simple" aria-hidden="true"></i>
-            <span className="hidden sm:inline">Stats</span>
+            <span>Statistiques</span>
           </button>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className={`${!open && "hidden"} mb-6`}>
+      {/* Stats Section - RESPONSIVE */}
+      <div className={`${!open && "hidden"} mb-4 sm:mb-6`}>
         <ProductSalesStat
           open={open}
           bestProductSoldSinceBeginning={
@@ -106,22 +106,25 @@ const ProductSales = ({ data }) => {
         />
       </div>
 
-      {/* Table Section avec design amélioré */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
-        {/* Header de la table */}
-        <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200">
-          <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-            <i className="fa fa-trophy text-purple-600"></i>
-            Produits Générant le Plus de Revenus Ce Mois
+      {/* Table Section avec design amélioré - RESPONSIVE */}
+      <div className="bg-white rounded-none sm:rounded-lg shadow-md overflow-hidden border-0 sm:border sm:border-gray-100">
+        {/* Header de la table - RESPONSIVE */}
+        <div className="flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center px-3 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-purple-50 to-purple-100 border-b border-purple-200">
+          <h2 className="text-sm sm:text-base lg:text-lg font-bold text-gray-800 flex items-center gap-2">
+            <i className="fa fa-trophy text-purple-600 text-sm sm:text-base"></i>
+            <span className="hidden sm:inline">
+              Produits Générant le Plus de Revenus Ce Mois
+            </span>
+            <span className="sm:hidden">Top Revenus du Mois</span>
           </h2>
-          <div className="flex items-center gap-4">
-            <div className="text-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4">
+            <div className="text-xs sm:text-sm">
               <span className="text-gray-600 font-medium">Montant Total: </span>
               <span className="font-bold text-purple-700">
                 ${totalAmount.toFixed(2)}
               </span>
             </div>
-            <div className="text-sm">
+            <div className="text-xs sm:text-sm">
               <span className="text-gray-600 font-medium">Quantité: </span>
               <span className="font-bold text-purple-700">{totalQuantity}</span>
             </div>

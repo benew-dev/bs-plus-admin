@@ -76,58 +76,67 @@ const ProductStatCard = ({
     <div
       className={`
         ${colors.bg} ${colors.border}
-        border-2 rounded-lg p-4 
+        border-2 rounded-lg p-3 sm:p-4 
         transition-all duration-300 ease-in-out
         transform hover:-translate-y-1 hover:shadow-lg
         flex flex-col justify-between
         h-full
       `}
     >
-      {/* Header avec icône et titre */}
-      <div className="flex items-start justify-between mb-3">
-        <div className={`${colors.badge} rounded-lg px-3 py-1.5 shadow-sm`}>
+      {/* Header avec icône et titre - RESPONSIVE */}
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
+        <div
+          className={`${colors.badge} rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 shadow-sm`}
+        >
           <p
-            className={`${colors.badgeText} text-xs font-semibold uppercase tracking-wide`}
+            className={`${colors.badgeText} text-[10px] sm:text-xs font-semibold uppercase tracking-wide`}
           >
             {title || "N/A"}
           </p>
         </div>
         {icon && (
           <div className={`${colors.icon}`}>
-            <i className={`fa ${icon} text-lg`} aria-hidden="true"></i>
+            <i
+              className={`fa ${icon} text-base sm:text-lg`}
+              aria-hidden="true"
+            ></i>
           </div>
         )}
       </div>
 
-      {/* Nom du produit/catégorie */}
-      <div className="mb-3">
-        <p className="text-gray-900 font-bold text-base leading-tight line-clamp-2">
+      {/* Nom du produit/catégorie - RESPONSIVE */}
+      <div className="mb-2 sm:mb-3">
+        <p className="text-gray-900 font-bold text-sm sm:text-base leading-tight line-clamp-2">
           {content || "Aucun"}
         </p>
       </div>
 
-      {/* Stats - Montant et Quantité */}
-      <div className="space-y-2 mb-3">
+      {/* Stats - Montant et Quantité - RESPONSIVE */}
+      <div className="space-y-1.5 sm:space-y-2 mb-2 sm:mb-3">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-600 font-medium">Montant:</span>
-          <span className={`${colors.amount} font-bold text-sm`}>
+          <span className="text-[10px] sm:text-xs text-gray-600 font-medium">
+            Montant:
+          </span>
+          <span className={`${colors.amount} font-bold text-xs sm:text-sm`}>
             ${amount || "0.00"}
           </span>
         </div>
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-600 font-medium">Quantité:</span>
-          <span className="text-gray-800 font-semibold text-sm">
+          <span className="text-[10px] sm:text-xs text-gray-600 font-medium">
+            Quantité:
+          </span>
+          <span className="text-gray-800 font-semibold text-xs sm:text-sm">
             {quantity || 0}{" "}
-            <span className="text-xs text-gray-500">
+            <span className="text-[10px] sm:text-xs text-gray-500">
               unité{quantity > 1 ? "s" : ""}
             </span>
           </span>
         </div>
       </div>
 
-      {/* Période */}
-      <div className="pt-2 border-t border-gray-200">
-        <p className="text-xs text-gray-500 font-medium">
+      {/* Période - RESPONSIVE */}
+      <div className="pt-1.5 sm:pt-2 border-t border-gray-200">
+        <p className="text-[10px] sm:text-xs text-gray-500 font-medium">
           <i className="fa fa-calendar mr-1" aria-hidden="true"></i>
           {indication || "N/A"}
         </p>
