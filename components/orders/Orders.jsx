@@ -44,42 +44,44 @@ const Orders = memo(({ orders }) => {
   }, [error]);
 
   return (
-    <div className="relative overflow-x-auto">
-      {/* Header amélioré avec gradient */}
-      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-t-lg shadow-lg p-6 mb-6">
-        <div className="flex justify-between items-center">
+    <div className="relative overflow-x-hidden">
+      {/* Header amélioré avec gradient - RESPONSIVE */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
               Gestion des Commandes
             </h1>
-            <p className="text-blue-100 text-sm">
+            <p className="text-blue-100 text-xs sm:text-sm">
               Gérez et suivez toutes les commandes de votre boutique
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <button
               onClick={() => setOpenStats((prev) => !prev)}
-              className="px-4 py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
               title="Afficher les statistiques"
             >
               <i className="fa fa-chart-simple" aria-hidden="true"></i>
-              <span className="hidden sm:inline">Stats</span>
+              <span>Stats</span>
             </button>
             <button
               onClick={() => setOpen((prev) => !prev)}
-              className="px-4 py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
               title="Filtrer les commandes"
             >
               <i className="fa fa-sliders" aria-hidden="true"></i>
-              <span className="hidden sm:inline">Filtres</span>
+              <span>Filtres</span>
             </button>
-            <Search setLoading={setLoading} />
+            <div className="w-full sm:w-auto">
+              <Search setLoading={setLoading} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className={`${!openStats && "hidden"} mb-6`}>
+      {/* Stats Section - RESPONSIVE */}
+      <div className={`${!openStats && "hidden"} mb-4 sm:mb-6`}>
         <OrderInfoStats
           open={openStats}
           ordersCount={orders?.ordersCount}
@@ -90,15 +92,15 @@ const Orders = memo(({ orders }) => {
         />
       </div>
 
-      {/* Filters Section */}
-      <div className={`${!open && "hidden"} mb-6`}>
+      {/* Filters Section - RESPONSIVE */}
+      <div className={`${!open && "hidden"} mb-4 sm:mb-6`}>
         <OrdersFilter open={open} setLoading={setLoading} />
       </div>
 
-      {/* Table Section avec design amélioré */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+      {/* Table Section avec design amélioré - RESPONSIVE */}
+      <div className="bg-white rounded-none sm:rounded-lg shadow-md overflow-hidden border-0 sm:border sm:border-gray-100">
         {loading ? (
-          <div className="p-8">
+          <div className="p-6 sm:p-8">
             <Loading />
           </div>
         ) : (
@@ -109,9 +111,9 @@ const Orders = memo(({ orders }) => {
         )}
       </div>
 
-      {/* Pagination avec design amélioré */}
+      {/* Pagination avec design amélioré - RESPONSIVE */}
       {orders?.totalPages > 1 && (
-        <div className="mt-6 flex justify-center">
+        <div className="mt-4 sm:mt-6 flex justify-center px-3 sm:px-0">
           <CustomPagination totalPages={orders?.totalPages} />
         </div>
       )}
