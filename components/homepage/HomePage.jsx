@@ -151,35 +151,6 @@ export default function HomePage({ data }) {
             </div>
           </div>
         )}
-
-        {/* Preview Card */}
-        <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-xl p-6 border-2 border-dashed border-indigo-300">
-          <p className="text-xs uppercase text-indigo-600 font-semibold mb-3">
-            Aperçu
-          </p>
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            {data.image && data.image.public_id && (
-              <div className="aspect-video">
-                <CldImage
-                  src={data.image.public_id}
-                  alt={data.title}
-                  width={600}
-                  height={338}
-                  crop="fill"
-                  gravity="center"
-                  className="object-cover w-full h-full"
-                />
-              </div>
-            )}
-            <div className="p-6">
-              <h3 className="text-2xl font-bold text-slate-800 mb-2">
-                {data.title}
-              </h3>
-              <p className="text-lg text-slate-600 mb-4">{data.subtitle}</p>
-              <p className="text-slate-700">{data.text}</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

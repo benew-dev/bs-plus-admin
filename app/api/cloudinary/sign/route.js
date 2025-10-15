@@ -1,5 +1,5 @@
-import { v2 as cloudinary } from 'cloudinary';
-import { NextResponse } from 'next/server';
+import { v2 as cloudinary } from "cloudinary";
+import { NextResponse } from "next/server";
 
 // Configuration Cloudinary
 cloudinary.config({
@@ -22,9 +22,9 @@ export async function POST(req) {
 
     return NextResponse.json({ signature }, { status: 200 });
   } catch (error) {
-    console.error('Error signing Cloudinary params:', error);
+    console.error("Error signing Cloudinary params:", error);
     return NextResponse.json(
-      { error: 'Failed to sign upload parameters' },
+      { error: "Failed to sign upload parameters" },
       { status: 500 },
     );
   }
@@ -38,11 +38,11 @@ export async function GET() {
     // Paramètres d'upload
     const uploadParams = {
       timestamp: timestamp,
-      folder: 'buyitnow/products',
-      resource_type: 'image',
-      allowed_formats: 'jpg,jpeg,png,webp',
+      folder: "buyitnow/products",
+      resource_type: "image",
+      allowed_formats: "jpg,jpeg,png,webp",
       max_file_size: 5000000, // 5MB
-      transformation: 'w_800,h_800,c_limit,q_auto,f_auto',
+      transformation: "w_800,h_800,c_limit,q_auto,f_auto",
     };
 
     // Générer la signature
@@ -59,9 +59,9 @@ export async function GET() {
       uploadParams,
     });
   } catch (error) {
-    console.error('Error getting upload config:', error);
+    console.error("Error getting upload config:", error);
     return NextResponse.json(
-      { error: 'Failed to get upload configuration' },
+      { error: "Failed to get upload configuration" },
       { status: 500 },
     );
   }

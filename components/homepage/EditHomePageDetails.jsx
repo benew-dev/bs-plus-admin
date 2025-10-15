@@ -144,7 +144,7 @@ const EditHomePageDetails = ({ data }) => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto pb-8">
       <div className="mb-8">
         <h1 className="text-4xl font-bold text-slate-800 mb-2">
           Modifier la Page d'Accueil
@@ -286,7 +286,7 @@ const EditHomePageDetails = ({ data }) => {
             </div>
           </div>
 
-          {/* Section Upload Image */}
+          {/* Section Upload Image - HAUTEUR FIXE AVEC SCROLL */}
           <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-xl p-6 border-2 border-dashed border-indigo-300">
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -331,9 +331,9 @@ const EditHomePageDetails = ({ data }) => {
               )}
             </div>
 
-            {/* Affichage de l'image */}
+            {/* Affichage de l'image - AVEC HAUTEUR MAXIMUM */}
             {homePageData.image ? (
-              <div className="relative group">
+              <div className="relative group max-h-[400px] overflow-hidden">
                 <div className="rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-all">
                   <CldImage
                     src={homePageData.image.public_id}
@@ -351,7 +351,7 @@ const EditHomePageDetails = ({ data }) => {
                   type="button"
                   onClick={handleRemoveImage}
                   disabled={loading}
-                  className="absolute top-4 right-4 w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
+                  className="absolute top-4 right-4 w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg z-10"
                   title="Supprimer"
                 >
                   <svg
