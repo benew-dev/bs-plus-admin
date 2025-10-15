@@ -58,33 +58,33 @@ const UpdateUser = memo(({ user }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-4 sm:py-6 lg:py-8 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold text-slate-800 mb-2">
+        {/* Header - RESPONSIVE */}
+        <div className="mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-1 sm:mb-2">
             Modifier l'utilisateur
           </h1>
-          <p className="text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             Mettez à jour les informations de l'utilisateur
           </p>
         </div>
 
-        {/* Carte principale */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          {/* Tabs */}
-          <div className="flex border-b border-slate-200 bg-slate-50">
+        {/* Carte principale - RESPONSIVE */}
+        <div className="bg-white rounded-none sm:rounded-2xl shadow-xl border-0 sm:border sm:border-slate-200 overflow-hidden">
+          {/* Tabs - RESPONSIVE */}
+          <div className="flex border-b border-slate-200 bg-slate-50 overflow-x-auto">
             <button
               onClick={() => setActiveTab("basic")}
-              className={`flex-1 px-6 py-4 font-semibold transition-all ${
+              className={`flex-1 min-w-[140px] px-3 sm:px-6 py-3 sm:py-4 font-semibold transition-all text-sm sm:text-base ${
                 activeTab === "basic"
                   ? "text-blue-600 bg-white border-b-2 border-blue-600"
                   : "text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               }`}
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-1 sm:gap-2">
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -96,20 +96,21 @@ const UpdateUser = memo(({ user }) => {
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                Informations de base
+                <span className="hidden sm:inline">Informations de base</span>
+                <span className="sm:hidden">Base</span>
               </div>
             </button>
             <button
               onClick={() => setActiveTab("address")}
-              className={`flex-1 px-6 py-4 font-semibold transition-all ${
+              className={`flex-1 min-w-[140px] px-3 sm:px-6 py-3 sm:py-4 font-semibold transition-all text-sm sm:text-base ${
                 activeTab === "address"
                   ? "text-blue-600 bg-white border-b-2 border-blue-600"
                   : "text-slate-600 hover:text-slate-800 hover:bg-slate-100"
               }`}
             >
-              <div className="flex items-center justify-center gap-2">
+              <div className="flex items-center justify-center gap-1 sm:gap-2">
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -132,19 +133,19 @@ const UpdateUser = memo(({ user }) => {
             </button>
           </div>
 
-          <form onSubmit={submitHandler} className="p-8">
-            {/* Tab Basic Info */}
+          <form onSubmit={submitHandler} className="p-4 sm:p-6 lg:p-8">
+            {/* Tab Basic Info - RESPONSIVE */}
             {activeTab === "basic" && (
-              <div className="space-y-6 animate-fadeIn">
+              <div className="space-y-4 sm:space-y-6 animate-fadeIn">
                 {/* Nom complet */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Nom complet <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
-                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <div className="absolute inset-y-0 left-0 pl-3 sm:pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -164,20 +165,20 @@ const UpdateUser = memo(({ user }) => {
                       onChange={handleChange}
                       placeholder="Entrez le nom complet"
                       required
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
                 {/* Email */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Adresse email <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -197,20 +198,20 @@ const UpdateUser = memo(({ user }) => {
                       onChange={handleChange}
                       placeholder="exemple@email.com"
                       required
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
                 {/* Téléphone */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Numéro de téléphone <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -230,20 +231,20 @@ const UpdateUser = memo(({ user }) => {
                       onChange={handleChange}
                       placeholder="+253 77 12 34 56"
                       required
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
                 {/* Rôle */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Rôle <span className="text-red-500">*</span>
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -261,14 +262,14 @@ const UpdateUser = memo(({ user }) => {
                       value={formData.role}
                       onChange={handleChange}
                       required
-                      className="w-full pl-11 pr-10 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700 appearance-none cursor-pointer"
+                      className="w-full pl-10 sm:pl-11 pr-8 sm:pr-10 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700 appearance-none cursor-pointer"
                     >
                       <option value="user">Utilisateur</option>
                       <option value="admin">Administrateur</option>
                     </select>
                     <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -286,18 +287,18 @@ const UpdateUser = memo(({ user }) => {
               </div>
             )}
 
-            {/* Tab Adresse */}
+            {/* Tab Adresse - RESPONSIVE */}
             {activeTab === "address" && (
-              <div className="space-y-6 animate-fadeIn">
+              <div className="space-y-4 sm:space-y-6 animate-fadeIn">
                 {/* Rue */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Rue / Adresse
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -316,20 +317,20 @@ const UpdateUser = memo(({ user }) => {
                       value={formData.street}
                       onChange={handleChange}
                       placeholder="123 Rue de la République"
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
                 {/* Ville */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Ville
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -348,20 +349,20 @@ const UpdateUser = memo(({ user }) => {
                       value={formData.city}
                       onChange={handleChange}
                       placeholder="Djibouti"
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
                 {/* Pays */}
                 <div className="group">
-                  <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                     Pays
                   </label>
                   <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                       <svg
-                        className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                        className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -380,16 +381,16 @@ const UpdateUser = memo(({ user }) => {
                       value={formData.country}
                       onChange={handleChange}
                       placeholder="Djibouti"
-                      className="w-full pl-11 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
+                      className="w-full pl-10 sm:pl-11 pr-3 sm:pr-4 py-2 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all outline-none text-slate-700"
                     />
                   </div>
                 </div>
 
-                {/* Info box */}
-                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-                  <div className="flex gap-3">
+                {/* Info box - RESPONSIVE */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg sm:rounded-xl p-3 sm:p-4">
+                  <div className="flex gap-2 sm:gap-3">
                     <svg
-                      className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -402,10 +403,10 @@ const UpdateUser = memo(({ user }) => {
                       />
                     </svg>
                     <div>
-                      <p className="text-sm font-semibold text-blue-800 mb-1">
+                      <p className="text-xs sm:text-sm font-semibold text-blue-800 mb-1">
                         Information
                       </p>
-                      <p className="text-sm text-blue-700">
+                      <p className="text-xs sm:text-sm text-blue-700">
                         L'adresse est optionnelle mais recommandée pour
                         faciliter les livraisons.
                       </p>
@@ -415,15 +416,15 @@ const UpdateUser = memo(({ user }) => {
               </div>
             )}
 
-            {/* Boutons d'action */}
-            <div className="flex gap-4 mt-8 pt-6 border-t border-slate-200">
+            {/* Boutons d'action - RESPONSIVE */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-6 sm:mt-8 pt-4 sm:pt-6 border-t border-slate-200">
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-[1.02] transition-all shadow-lg hover:shadow-xl text-sm sm:text-base"
               >
                 <div className="flex items-center justify-center gap-2">
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -441,7 +442,7 @@ const UpdateUser = memo(({ user }) => {
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-slate-300 text-slate-700 rounded-lg sm:rounded-xl font-semibold hover:bg-slate-50 transition-all text-sm sm:text-base"
               >
                 Annuler
               </button>
@@ -449,15 +450,15 @@ const UpdateUser = memo(({ user }) => {
           </form>
         </div>
 
-        {/* Info card user actuel */}
-        <div className="mt-6 bg-white rounded-xl shadow-lg p-6 border border-slate-200">
-          <h3 className="text-sm font-semibold text-slate-600 uppercase mb-4">
+        {/* Info card user actuel - RESPONSIVE */}
+        <div className="mt-4 sm:mt-6 bg-white rounded-none sm:rounded-xl shadow-lg p-4 sm:p-6 border-0 sm:border sm:border-slate-200">
+          <h3 className="text-xs sm:text-sm font-semibold text-slate-600 uppercase mb-3 sm:mb-4">
             Informations actuelles
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div>
               <p className="text-xs text-slate-500 mb-1">ID Utilisateur</p>
-              <p className="text-sm font-mono text-slate-700">
+              <p className="text-xs sm:text-sm font-mono text-slate-700 break-all">
                 {user?._id?.slice(0, 8)}...
               </p>
             </div>
@@ -475,7 +476,7 @@ const UpdateUser = memo(({ user }) => {
             </div>
             <div>
               <p className="text-xs text-slate-500 mb-1">Créé le</p>
-              <p className="text-sm text-slate-700">
+              <p className="text-xs sm:text-sm text-slate-700">
                 {user?.createdAt
                   ? new Date(user.createdAt).toLocaleDateString("fr-FR")
                   : "N/A"}
@@ -483,7 +484,7 @@ const UpdateUser = memo(({ user }) => {
             </div>
             <div>
               <p className="text-xs text-slate-500 mb-1">Dernière connexion</p>
-              <p className="text-sm text-slate-700">
+              <p className="text-xs sm:text-sm text-slate-700">
                 {user?.lastLogin
                   ? new Date(user.lastLogin).toLocaleDateString("fr-FR")
                   : "Jamais"}

@@ -50,34 +50,36 @@ const Users = memo(({ data }) => {
   };
 
   return (
-    <div className="relative overflow-x-auto">
-      {/* Header amélioré avec gradient */}
-      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-t-lg shadow-lg p-6 mb-6">
-        <div className="flex justify-between items-center">
+    <div className="relative overflow-x-hidden">
+      {/* Header amélioré avec gradient - RESPONSIVE */}
+      <div className="bg-gradient-to-r from-teal-600 to-teal-700 rounded-none sm:rounded-t-lg shadow-lg p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">
+            <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-1 sm:mb-2">
               Gestion des Utilisateurs
             </h1>
-            <p className="text-teal-100 text-sm">
+            <p className="text-teal-100 text-xs sm:text-sm">
               Gérez et suivez tous les utilisateurs de votre plateforme
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
             <button
               title="Afficher les statistiques"
               onClick={() => setOpen((prev) => !prev)}
-              className="px-4 py-2.5 bg-white text-teal-600 font-medium rounded-lg hover:bg-teal-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center gap-2"
+              className="flex-1 sm:flex-none px-3 sm:px-4 py-2 sm:py-2.5 bg-white text-teal-600 font-medium rounded-lg hover:bg-teal-50 transition-all duration-200 shadow-md hover:shadow-lg flex items-center justify-center gap-2 text-sm"
             >
               <i className="fa fa-chart-simple" aria-hidden="true"></i>
-              <span className="hidden sm:inline">Stats</span>
+              <span>Statistiques</span>
             </button>
-            <Search setLoading={setLoading} />
+            <div className="flex-1 sm:flex-none w-full sm:w-auto">
+              <Search setLoading={setLoading} />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Stats Section */}
-      <div className={`${!open && "hidden"} mb-6`}>
+      {/* Stats Section - RESPONSIVE */}
+      <div className={`${!open && "hidden"} mb-4 sm:mb-6`}>
         <UserRegistrationStats
           open={open}
           totalUsers={data?.usersCount}
@@ -87,10 +89,10 @@ const Users = memo(({ data }) => {
         />
       </div>
 
-      {/* Table Section avec design amélioré */}
-      <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-100">
+      {/* Table Section avec design amélioré - RESPONSIVE */}
+      <div className="bg-white rounded-none sm:rounded-lg shadow-md overflow-hidden border-0 sm:border sm:border-gray-100">
         {loading ? (
-          <div className="p-8">
+          <div className="p-6 sm:p-8">
             <Loading />
           </div>
         ) : (
@@ -98,9 +100,9 @@ const Users = memo(({ data }) => {
         )}
       </div>
 
-      {/* Pagination avec design amélioré */}
+      {/* Pagination avec design amélioré - RESPONSIVE */}
       {data?.totalPages > 1 && (
-        <div className="mt-6 flex justify-center">
+        <div className="mt-4 sm:mt-6 flex justify-center px-3 sm:px-0">
           <CustomPagination totalPages={data?.totalPages} />
         </div>
       )}

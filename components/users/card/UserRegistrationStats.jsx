@@ -47,25 +47,25 @@ const UserRegistrationStats = ({
 
   return (
     <div
-      className={`${!open && "hidden"} bg-white rounded-lg shadow-md border border-gray-200 p-6`}
+      className={`${!open && "hidden"} bg-white rounded-none sm:rounded-lg shadow-md border-0 sm:border sm:border-gray-200 p-3 sm:p-4 lg:p-6`}
     >
-      {/* Header des stats */}
-      <div className="flex items-center gap-3 mb-6 pb-4 border-b border-gray-200">
-        <div className="w-10 h-10 bg-teal-100 rounded-lg flex items-center justify-center">
-          <i className="fa fa-chart-bar text-teal-600"></i>
+      {/* Header des stats - RESPONSIVE */}
+      <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b border-gray-200">
+        <div className="w-8 h-8 sm:w-10 sm:h-10 bg-teal-100 rounded-lg flex items-center justify-center flex-shrink-0">
+          <i className="fa fa-chart-bar text-teal-600 text-sm sm:text-base"></i>
         </div>
         <div>
-          <h4 className="text-lg font-bold text-gray-800">
+          <h4 className="text-base sm:text-lg font-bold text-gray-800">
             Statistiques d'Inscription
           </h4>
-          <p className="text-sm text-gray-500">
+          <p className="text-xs sm:text-sm text-gray-500">
             Vue d'ensemble des inscriptions utilisateurs
           </p>
         </div>
       </div>
 
-      {/* Grid des cartes */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* Grid des cartes - RESPONSIVE */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {data?.map((item, index) => (
           <UserStatCard
             key={index}

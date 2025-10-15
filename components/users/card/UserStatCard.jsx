@@ -62,41 +62,44 @@ const UserStatCard = ({ title, content, indication, color, icon }) => {
     <div
       className={`
         ${colors.bg} ${colors.border}
-        border-2 rounded-lg p-4 
+        border-2 rounded-lg p-3 sm:p-4 
         transition-all duration-300 ease-in-out
         transform hover:-translate-y-1 hover:shadow-lg
         flex flex-col justify-between
         h-full
       `}
     >
-      {/* Header avec icône et titre */}
-      <div className="flex items-start justify-between mb-3">
+      {/* Header avec icône et titre - RESPONSIVE */}
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
         <div
-          className={`${colors.badge} rounded-lg px-3 py-1.5 shadow-sm flex-1`}
+          className={`${colors.badge} rounded-lg px-2 sm:px-3 py-1 sm:py-1.5 shadow-sm flex-1`}
         >
           <p
-            className={`${colors.badgeText} text-xs font-semibold uppercase tracking-wide line-clamp-2`}
+            className={`${colors.badgeText} text-[10px] sm:text-xs font-semibold uppercase tracking-wide line-clamp-2`}
           >
             {title || "N/A"}
           </p>
         </div>
         {icon && (
-          <div className={`${colors.icon} ml-2`}>
-            <i className={`fa ${icon} text-lg`} aria-hidden="true"></i>
+          <div className={`${colors.icon} ml-2 flex-shrink-0`}>
+            <i
+              className={`fa ${icon} text-base sm:text-lg`}
+              aria-hidden="true"
+            ></i>
           </div>
         )}
       </div>
 
-      {/* Contenu principal */}
-      <div className="mb-3">
-        <p className="text-gray-900 font-bold text-xl leading-tight">
+      {/* Contenu principal - RESPONSIVE */}
+      <div className="mb-2 sm:mb-3">
+        <p className="text-gray-900 font-bold text-base sm:text-lg lg:text-xl leading-tight break-words">
           {content || "Aucun"}
         </p>
       </div>
 
-      {/* Indication */}
-      <div className="pt-2 border-t border-gray-200">
-        <p className="text-xs text-gray-500 font-medium">
+      {/* Indication - RESPONSIVE */}
+      <div className="pt-1.5 sm:pt-2 border-t border-gray-200">
+        <p className="text-[10px] sm:text-xs text-gray-500 font-medium">
           <i className="fa fa-info-circle mr-1" aria-hidden="true"></i>
           {indication || "N/A"}
         </p>
