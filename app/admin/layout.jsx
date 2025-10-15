@@ -23,9 +23,22 @@ const AdminLayout = ({ children }) => {
             {/* Sidebar - Hidden on mobile by default */}
             <Sidebar />
 
-            {/* Main content area */}
+            {/* Main content area - Aéré sur mobile, avec bordure sur desktop */}
             <main className="flex-1 w-full min-w-0">
-              <article className="border border-gray-200 bg-white shadow-sm sm:shadow-md rounded-lg mb-5 p-3 sm:p-4 lg:p-6">
+              {/* 
+                Mobile: Pas de bordure, pas de padding/margin extra (aéré)
+                Desktop: Avec bordure et padding pour un look professionnel
+              */}
+              <article
+                className="
+                bg-white 
+                rounded-none sm:rounded-lg 
+                border-0 sm:border sm:border-gray-200 
+                shadow-none sm:shadow-sm 
+                mb-0 sm:mb-5 
+                p-0 sm:p-4 lg:p-6
+              "
+              >
                 <Suspense>{children}</Suspense>
               </article>
             </main>
