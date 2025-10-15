@@ -15,86 +15,63 @@ const Sidebar = memo(() => {
   const [openUsers, setOpenUsers] = useState(false);
   const [openAnalytics, setOpenAnalytics] = useState(false);
   const [openReports, setOpenReports] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // ← NOUVEAU
 
   const isSettings = () => {
     let isTrue;
-
     switch (pathName) {
       case "/admin/settings":
-        isTrue = true;
-        break;
       case "/admin/settings/categories/add":
-        isTrue = true;
-        break;
       case "/admin/settings/paymentType/add":
         isTrue = true;
         break;
-
       default:
         isTrue = false;
         break;
     }
-
     return isTrue;
   };
 
   const isProductsInfo = () => {
     let isTrue;
-
     switch (pathName) {
       case "/admin/products":
-        isTrue = true;
-        break;
       case `/admin/products/${params?.id}/upload_images`:
-        isTrue = true;
-        break;
       case `/admin/products/${params?.id}`:
         isTrue = true;
         break;
-
       default:
         isTrue = false;
         break;
     }
-
     return isTrue;
   };
 
   const isOrders = () => {
     let isTrue;
-
     switch (pathName) {
       case "/admin/orders":
-        isTrue = true;
-        break;
       case `/admin/orders/${params?.id}`:
         isTrue = true;
         break;
-
       default:
         isTrue = false;
         break;
     }
-
     return isTrue;
   };
 
   const isUsers = () => {
     let isTrue;
-
     switch (pathName) {
       case "/admin/users":
-        isTrue = true;
-        break;
       case `/admin/users/${params?.id}`:
         isTrue = true;
         break;
-
       default:
         isTrue = false;
         break;
     }
-
     return isTrue;
   };
 
@@ -102,271 +79,389 @@ const Sidebar = memo(() => {
     signOut();
   };
 
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   return (
-    <aside className="px-2">
-      <ul className="sidebar">
-        <>
+    <>
+      {/* Bouton menu hamburger - Visible uniquement sur mobile */}
+      <button
+        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        className="lg:hidden fixed top-20 right-4 z-50 p-3 bg-blue-600 text-white rounded-lg shadow-lg hover:bg-blue-700 transition-colors"
+        aria-label="Toggle menu"
+      >
+        <i
+          className={`fa ${mobileMenuOpen ? "fa-times" : "fa-bars"} text-xl`}
+        ></i>
+      </button>
+
+      {/* Overlay pour mobile */}
+      {mobileMenuOpen && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/50 z-30"
+          onClick={closeMobileMenu}
+        ></div>
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed lg:sticky top-0 left-0 h-screen lg:h-auto
+          w-64 lg:w-56 xl:w-64
+          bg-white lg:bg-transparent
+          shadow-xl lg:shadow-none
+          z-40
+          overflow-y-auto
+          transition-transform duration-300 ease-in-out
+          ${mobileMenuOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
+          px-3 py-4 lg:px-2 lg:py-0
+        `}
+      >
+        <ul className="sidebar space-y-1">
+          {/* Dashboard Overview */}
           <li>
-            {" "}
             <Link
-              onClick={() => setActivePart("")}
+              onClick={() => {
+                setActivePart("");
+                closeMobileMenu();
+              }}
               href="/admin"
-              className={`flex gap-2 text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin" && "bg-blue-100"}`}
+              className={`flex items-center gap-3 text-sm px-3 py-2.5 text-gray-800 hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${pathName === "/admin" && "bg-blue-100 text-blue-600 font-semibold"}`}
             >
-              <span>
-                <i className="fa fa-house" aria-hidden="true"></i>
-              </span>
-              <span>Overview</span>
+              <i className="fa fa-house w-5 text-center" aria-hidden="true"></i>
+              <span>Dashboard</span>
             </Link>
           </li>
 
-          <li className="block px-3 py-2 text-gray-800 rounded-md">
-            <p
+          {/* Analytics Section */}
+          <li className="block">
+            <button
               onClick={() => {
                 setActivePart("analytics");
                 setOpenAnalytics((prev) => !prev);
               }}
-              className={`flex gap-2 mb-2 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-500 ${activePart === "analytics" && "bg-blue-100"}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "analytics" && "bg-blue-100 text-blue-600"}`}
             >
-              <span>
-                <i className="fa fa-chart-line" aria-hidden="true"></i>
-              </span>
-              <span>Analytics</span>
-            </p>{" "}
-            <ul className={`${!openAnalytics && "hidden"}`}>
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-chart-line w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Analytics</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openAnalytics ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openAnalytics && "hidden"}`}>
               <li>
                 <Link
-                  onClick={() => setActivePart("analytics")}
+                  onClick={() => {
+                    setActivePart("analytics");
+                    closeMobileMenu();
+                  }}
                   href="/admin/analytics/weekly"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/analytics/weekly" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/analytics/weekly" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-calendar-week" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-calendar-week w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Weekly</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  onClick={() => setActivePart("analytics")}
+                  onClick={() => {
+                    setActivePart("analytics");
+                    closeMobileMenu();
+                  }}
                   href="/admin/analytics/monthly"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/analytics/monthly" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/analytics/monthly" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-calendar" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-calendar w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Monthly</span>
                 </Link>
               </li>
             </ul>
           </li>
 
-          <li className="block px-3 py-2 text-gray-800 rounded-md">
-            <p
+          {/* Reports Section */}
+          <li className="block">
+            <button
               onClick={() => {
                 setActivePart("reports");
                 setOpenReports((prev) => !prev);
               }}
-              className={`flex gap-2 mb-2 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-500 ${activePart === "reports" && "bg-blue-100"}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "reports" && "bg-blue-100 text-blue-600"}`}
             >
-              <span>
-                <i className="fa fa-file-pdf" aria-hidden="true"></i>
-              </span>
-              <span>Reports</span>
-            </p>{" "}
-            <ul className={`${!openReports && "hidden"}`}>
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-file-pdf w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Reports</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openReports ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openReports && "hidden"}`}>
               <li>
                 <Link
-                  onClick={() => setActivePart("reports")}
+                  onClick={() => {
+                    setActivePart("reports");
+                    closeMobileMenu();
+                  }}
                   href="/admin/reports/monthly"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/reports/monthly" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/reports/monthly" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-calendar" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-calendar w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Monthly</span>
                 </Link>
               </li>
             </ul>
           </li>
 
+          {/* Home Page */}
           <li>
             <Link
-              onClick={() => setActivePart("")}
+              onClick={() => {
+                setActivePart("");
+                closeMobileMenu();
+              }}
               href="/admin/homepage"
-              className={`flex gap-2 text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/homepage" && "bg-blue-100"}`}
+              className={`flex items-center gap-3 text-sm px-3 py-2.5 text-gray-800 hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${pathName === "/admin/homepage" && "bg-blue-100 text-blue-600 font-semibold"}`}
             >
-              <span>
-                <i className="fa fa-home" aria-hidden="true"></i>
-              </span>
+              <i className="fa fa-home w-5 text-center" aria-hidden="true"></i>
               <span>Home Page</span>
             </Link>
           </li>
 
+          {/* Settings */}
           <li>
-            {" "}
             <Link
-              onClick={() => setActivePart("")}
+              onClick={() => {
+                setActivePart("");
+                closeMobileMenu();
+              }}
               href="/admin/settings"
-              className={`flex gap-2 text-sm px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${isSettings() && "bg-blue-100"}`}
+              className={`flex items-center gap-3 text-sm px-3 py-2.5 text-gray-800 hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${isSettings() && "bg-blue-100 text-blue-600 font-semibold"}`}
             >
-              <span>
-                <i className="fa fa-gear" aria-hidden="true"></i>
-              </span>
+              <i className="fa fa-gear w-5 text-center" aria-hidden="true"></i>
               <span>Settings</span>
             </Link>
           </li>
 
-          <li className="block px-3 py-2 text-gray-800 rounded-md">
-            <p
+          {/* Products Section */}
+          <li className="block">
+            <button
               onClick={() => {
                 setActivePart("products");
                 setOpenProducts((prev) => !prev);
               }}
-              className={`flex gap-2 mb-2 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-500 ${activePart === "products" && "bg-blue-100"}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "products" && "bg-blue-100 text-blue-600"}`}
             >
-              <span>
-                <i className="fa fa-warehouse" aria-hidden="true"></i>
-              </span>
-              <span>Products</span>
-            </p>{" "}
-            <ul className={`${!openProducts && "hidden"}`}>
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-warehouse w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Products</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openProducts ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openProducts && "hidden"}`}>
               <li>
-                {" "}
                 <Link
-                  onClick={() => setActivePart("products")}
+                  onClick={() => {
+                    setActivePart("products");
+                    closeMobileMenu();
+                  }}
                   href="/admin/products/new"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/products/new" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/products/new" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-plus" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-plus w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>New</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  onClick={() => setActivePart("products")}
+                  onClick={() => {
+                    setActivePart("products");
+                    closeMobileMenu();
+                  }}
                   href="/admin/products"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${isProductsInfo() && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${isProductsInfo() && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-file-lines" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-file-lines w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Info</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  onClick={() => setActivePart("products")}
+                  onClick={() => {
+                    setActivePart("products");
+                    closeMobileMenu();
+                  }}
                   href="/admin/products/sales"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/products/sales" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/products/sales" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-chart-column" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-chart-column w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Sales</span>
                 </Link>
               </li>
             </ul>
           </li>
 
-          <li className="block px-3 py-2 text-gray-800 rounded-md">
-            <p
+          {/* Orders Section */}
+          <li className="block">
+            <button
               onClick={() => {
                 setActivePart("orders");
                 setOpenOrders((prev) => !prev);
               }}
-              className={`flex gap-2 mb-2 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-500 ${activePart === "orders" && "bg-blue-100"}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "orders" && "bg-blue-100 text-blue-600"}`}
             >
-              <span>
-                <i className="fa fa-cart-shopping" aria-hidden="true"></i>
-              </span>
-              <span>Orders</span>
-            </p>{" "}
-            <ul className={`${!openOrders && "hidden"}`}>
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-cart-shopping w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Orders</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openOrders ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openOrders && "hidden"}`}>
               <li>
                 <Link
-                  onClick={() => setActivePart("orders")}
+                  onClick={() => {
+                    setActivePart("orders");
+                    closeMobileMenu();
+                  }}
                   href="/admin/orders"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${isOrders() && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${isOrders() && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-file-lines" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-file-lines w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Info</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  onClick={() => setActivePart("orders")}
+                  onClick={() => {
+                    setActivePart("orders");
+                    closeMobileMenu();
+                  }}
                   href="/admin/orders/purchasings"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/orders/purchasings" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/orders/purchasings" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-chart-column" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-chart-column w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Purchases</span>
                 </Link>
               </li>
             </ul>
           </li>
 
-          <li className="block px-3 py-2 text-gray-800 rounded-md">
-            <p
+          {/* Users Section */}
+          <li className="block">
+            <button
               onClick={() => {
                 setActivePart("users");
                 setOpenUsers((prev) => !prev);
               }}
-              className={`flex gap-2 mb-2 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-500 ${activePart === "users" && "bg-blue-100"}`}
+              className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 text-sm font-semibold cursor-pointer hover:bg-blue-100 hover:text-blue-600 rounded-lg transition-colors ${activePart === "users" && "bg-blue-100 text-blue-600"}`}
             >
-              <span>
-                <i className="fa fa-user" aria-hidden="true"></i>
-              </span>
-              <span>Users</span>
-            </p>{" "}
-            <ul className={`${!openUsers && "hidden"}`}>
+              <div className="flex items-center gap-3">
+                <i
+                  className="fa fa-user w-5 text-center"
+                  aria-hidden="true"
+                ></i>
+                <span>Users</span>
+              </div>
+              <i
+                className={`fa fa-chevron-${openUsers ? "up" : "down"} text-xs`}
+              ></i>
+            </button>
+            <ul className={`mt-1 ml-8 space-y-1 ${!openUsers && "hidden"}`}>
               <li>
                 <Link
-                  onClick={() => setActivePart("users")}
+                  onClick={() => {
+                    setActivePart("users");
+                    closeMobileMenu();
+                  }}
                   href="/admin/users"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${isUsers() && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${isUsers() && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-file-lines" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-file-lines w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Info</span>
                 </Link>
               </li>
               <li>
                 <Link
-                  onClick={() => setActivePart("users")}
+                  onClick={() => {
+                    setActivePart("users");
+                    closeMobileMenu();
+                  }}
                   href="/admin/users/stats"
-                  className={`flex gap-2 text-xs justify-start pl-4 py-1 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md ${pathName === "/admin/users/stats" && "bg-blue-100"}`}
+                  className={`flex items-center gap-2 text-xs px-3 py-2 text-gray-700 hover:bg-blue-50 hover:text-blue-600 rounded-md transition-colors ${pathName === "/admin/users/stats" && "bg-blue-50 text-blue-600 font-medium"}`}
                 >
-                  <span>
-                    <i className="fa fa-chart-column" aria-hidden="true"></i>
-                  </span>
+                  <i
+                    className="fa fa-chart-column w-4 text-center"
+                    aria-hidden="true"
+                  ></i>
                   <span>Users Stats</span>
                 </Link>
               </li>
             </ul>
           </li>
 
-          <hr />
-        </>
+          <hr className="my-3 border-gray-200" />
 
-        <li>
-          {" "}
-          <a
-            className="block px-3 py-2 text-red-800 hover:bg-red-100 hover:text-white-500 rounded-md cursor-pointer"
-            onClick={logoutHandler}
-          >
-            Logout
-          </a>
-        </li>
-      </ul>
-    </aside>
+          {/* Logout */}
+          <li>
+            <button
+              onClick={logoutHandler}
+              className="w-full flex items-center gap-3 text-sm px-3 py-2.5 text-red-700 hover:bg-red-100 hover:text-red-800 rounded-lg cursor-pointer transition-colors font-semibold"
+            >
+              <i
+                className="fa fa-sign-out w-5 text-center"
+                aria-hidden="true"
+              ></i>
+              <span>Logout</span>
+            </button>
+          </li>
+        </ul>
+      </aside>
+    </>
   );
 });
 
