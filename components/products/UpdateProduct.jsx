@@ -56,23 +56,23 @@ const UpdateProduct = memo(({ data }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-4xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-800 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
             Modifier le Produit
           </h1>
-          <p className="text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             Mettez à jour les informations du produit
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-blue-500 to-indigo-500 p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -86,23 +86,28 @@ const UpdateProduct = memo(({ data }) => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                   Mettre à jour le produit
                 </h2>
-                <p className="text-white/80">Modifiez les détails du produit</p>
+                <p className="text-xs sm:text-sm text-white/80">
+                  Modifiez les détails du produit
+                </p>
               </div>
             </div>
           </div>
 
-          <form onSubmit={submitHandler} className="p-8 space-y-6">
+          <form
+            onSubmit={submitHandler}
+            className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6"
+          >
             <div className="group">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                 Nom du produit <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                   <svg
-                    className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -121,19 +126,19 @@ const UpdateProduct = memo(({ data }) => {
                   value={name}
                   onChange={onChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
+                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
                 />
               </div>
             </div>
 
             <div className="group">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                 Description <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <div className="absolute top-3 left-4 pointer-events-none">
+                <div className="absolute top-2.5 sm:top-3 left-3 sm:left-4 pointer-events-none">
                   <svg
-                    className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,20 +157,20 @@ const UpdateProduct = memo(({ data }) => {
                   value={description}
                   onChange={onChange}
                   required
-                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700 resize-none"
+                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700 resize-none"
                 ></textarea>
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
               <div className="group">
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                   Prix (FDj) <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                     <svg
-                      className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -186,19 +191,19 @@ const UpdateProduct = memo(({ data }) => {
                     required
                     min="0"
                     step="1"
-                    className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
+                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
                   />
                 </div>
               </div>
 
               <div className="group">
-                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                   Stock <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                  <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                     <svg
-                      className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -219,20 +224,20 @@ const UpdateProduct = memo(({ data }) => {
                     required
                     min="0"
                     step="1"
-                    className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
+                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700"
                   />
                 </div>
               </div>
             </div>
 
             <div className="group">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                 Catégorie <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                   <svg
-                    className="w-5 h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-blue-500 transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -250,7 +255,7 @@ const UpdateProduct = memo(({ data }) => {
                   value={category}
                   onChange={onChange}
                   required
-                  className="w-full pl-12 pr-10 py-3 border-2 border-slate-200 rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700 appearance-none cursor-pointer"
+                  className="w-full pl-10 sm:pl-12 pr-10 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all outline-none text-slate-700 appearance-none cursor-pointer"
                 >
                   {categories.map((cat) => (
                     <option key={cat._id} value={cat._id}>
@@ -258,9 +263,9 @@ const UpdateProduct = memo(({ data }) => {
                     </option>
                   ))}
                 </select>
-                <div className="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 right-0 pr-3 sm:pr-4 flex items-center pointer-events-none">
                   <svg
-                    className="w-5 h-5 text-slate-400"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -277,9 +282,9 @@ const UpdateProduct = memo(({ data }) => {
             </div>
 
             {canBeActivated && (
-              <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-6 border border-slate-200">
+              <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
                 <label className="flex items-start cursor-pointer">
-                  <div className="relative">
+                  <div className="relative flex-shrink-0">
                     <input
                       type="checkbox"
                       name="isActive"
@@ -287,11 +292,11 @@ const UpdateProduct = memo(({ data }) => {
                       onChange={onChange}
                       className="sr-only peer"
                     />
-                    <div className="w-14 h-8 bg-slate-300 rounded-full peer-checked:bg-green-500 transition-all peer-focus:ring-4 peer-focus:ring-green-200"></div>
-                    <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform peer-checked:translate-x-6 shadow-lg"></div>
+                    <div className="w-12 h-7 sm:w-14 sm:h-8 bg-slate-300 rounded-full peer-checked:bg-green-500 transition-all peer-focus:ring-4 peer-focus:ring-green-200"></div>
+                    <div className="absolute left-1 top-1 w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full transition-transform peer-checked:translate-x-5 sm:peer-checked:translate-x-6 shadow-lg"></div>
                   </div>
-                  <div className="ml-4">
-                    <span className="text-sm font-semibold text-slate-800">
+                  <div className="ml-3 sm:ml-4">
+                    <span className="text-xs sm:text-sm font-semibold text-slate-800">
                       Produit actif
                     </span>
                     <p className="text-xs text-slate-600 mt-1">
@@ -305,10 +310,10 @@ const UpdateProduct = memo(({ data }) => {
             )}
 
             {!canBeActivated && (
-              <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-4">
-                <div className="flex gap-3">
+              <div className="bg-orange-50 border-l-4 border-orange-500 rounded-lg p-3 sm:p-4">
+                <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-5 h-5 text-orange-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-orange-500 flex-shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -319,10 +324,10 @@ const UpdateProduct = memo(({ data }) => {
                     />
                   </svg>
                   <div>
-                    <p className="text-sm font-semibold text-orange-800 mb-1">
+                    <p className="text-xs sm:text-sm font-semibold text-orange-800 mb-1">
                       Images requises
                     </p>
-                    <p className="text-sm text-orange-700">
+                    <p className="text-xs sm:text-sm text-orange-700">
                       Vous devez ajouter au moins une image avant de pouvoir
                       activer ce produit
                     </p>
@@ -331,13 +336,13 @@ const UpdateProduct = memo(({ data }) => {
               </div>
             )}
 
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-blue-700 hover:to-indigo-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -354,7 +359,7 @@ const UpdateProduct = memo(({ data }) => {
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-slate-300 text-slate-700 rounded-lg sm:rounded-xl font-semibold hover:bg-slate-50 transition-all text-sm sm:text-base"
               >
                 Annuler
               </button>

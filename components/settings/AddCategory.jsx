@@ -22,25 +22,25 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-800 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
             Nouvelle Catégorie
           </h1>
-          <p className="text-slate-600">
+          <p className="text-sm sm:text-base text-slate-600">
             Créez une nouvelle catégorie de produits
           </p>
         </div>
 
         {/* Form Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
-            <div className="flex items-center gap-4">
-              <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-8 h-8 text-white"
+                  className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -54,24 +54,29 @@ const AddCategory = () => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-white">
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                   Ajouter une catégorie
                 </h2>
-                <p className="text-white/80">Maximum 6 catégories autorisées</p>
+                <p className="text-xs sm:text-sm text-white/80">
+                  Maximum 6 catégories autorisées
+                </p>
               </div>
             </div>
           </div>
 
-          <form onSubmit={submitHandler} className="p-8 space-y-6">
+          <form
+            onSubmit={submitHandler}
+            className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6"
+          >
             {/* Category Name */}
             <div className="group">
-              <label className="block text-sm font-semibold text-slate-700 mb-2">
+              <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
                 Nom de la catégorie <span className="text-red-500">*</span>
               </label>
               <div className="relative">
-                <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                   <svg
-                    className="w-5 h-5 text-slate-400 group-focus-within:text-purple-500 transition-colors"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-purple-500 transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -91,29 +96,29 @@ const AddCategory = () => {
                   placeholder="Ex: Électronique, Vêtements..."
                   minLength={3}
                   required
-                  className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all outline-none text-slate-700"
+                  className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all outline-none text-slate-700"
                 />
               </div>
-              <p className="mt-2 text-sm text-slate-500">
+              <p className="mt-2 text-xs sm:text-sm text-slate-500">
                 Minimum 3 caractères
               </p>
             </div>
 
             {/* Active Toggle */}
-            <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-xl p-6 border border-slate-200">
+            <div className="bg-gradient-to-br from-slate-50 to-blue-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border border-slate-200">
               <label className="flex items-start cursor-pointer">
-                <div className="relative">
+                <div className="relative flex-shrink-0">
                   <input
                     type="checkbox"
                     checked={isActive}
                     onChange={(e) => setIsActive(e.target.checked)}
                     className="sr-only peer"
                   />
-                  <div className="w-14 h-8 bg-slate-300 rounded-full peer-checked:bg-green-500 transition-all peer-focus:ring-4 peer-focus:ring-green-200"></div>
-                  <div className="absolute left-1 top-1 w-6 h-6 bg-white rounded-full transition-transform peer-checked:translate-x-6 shadow-lg"></div>
+                  <div className="w-12 h-7 sm:w-14 sm:h-8 bg-slate-300 rounded-full peer-checked:bg-green-500 transition-all peer-focus:ring-4 peer-focus:ring-green-200"></div>
+                  <div className="absolute left-1 top-1 w-5 h-5 sm:w-6 sm:h-6 bg-white rounded-full transition-transform peer-checked:translate-x-5 sm:peer-checked:translate-x-6 shadow-lg"></div>
                 </div>
-                <div className="ml-4">
-                  <span className="text-sm font-semibold text-slate-800">
+                <div className="ml-3 sm:ml-4">
+                  <span className="text-xs sm:text-sm font-semibold text-slate-800">
                     Activer immédiatement
                   </span>
                   <p className="text-xs text-slate-600 mt-1">
@@ -126,10 +131,10 @@ const AddCategory = () => {
             </div>
 
             {/* Info Box */}
-            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-              <div className="flex gap-3">
+            <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
+              <div className="flex gap-2 sm:gap-3">
                 <svg
-                  className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -140,10 +145,10 @@ const AddCategory = () => {
                   />
                 </svg>
                 <div>
-                  <p className="text-sm font-semibold text-blue-800 mb-1">
+                  <p className="text-xs sm:text-sm font-semibold text-blue-800 mb-1">
                     À savoir
                   </p>
-                  <p className="text-sm text-blue-700">
+                  <p className="text-xs sm:text-sm text-blue-700">
                     Vous pouvez activer ou désactiver une catégorie à tout
                     moment depuis la page des paramètres.
                   </p>
@@ -152,13 +157,13 @@ const AddCategory = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
               <button
                 type="submit"
-                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                className="flex-1 bg-gradient-to-r from-purple-600 to-pink-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-purple-700 hover:to-pink-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 text-sm sm:text-base"
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -175,7 +180,7 @@ const AddCategory = () => {
               <button
                 type="button"
                 onClick={() => window.history.back()}
-                className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all"
+                className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-slate-300 text-slate-700 rounded-lg sm:rounded-xl font-semibold hover:bg-slate-50 transition-all text-sm sm:text-base"
               >
                 Annuler
               </button>

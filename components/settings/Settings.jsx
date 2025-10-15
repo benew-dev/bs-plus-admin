@@ -96,19 +96,19 @@ const Settings = ({ dataCategory, dataPayment }) => {
     return (
       <div
         key={category._id}
-        className={`relative group rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 ${
+        className={`relative group rounded-xl sm:rounded-2xl overflow-hidden shadow-lg transition-all duration-300 hover:shadow-2xl hover:scale-105 ${
           isAnyOperation ? "opacity-50 scale-95" : ""
         }`}
       >
         <div
-          className={`p-6 bg-gradient-to-br ${isActive ? colorScheme.bg : "from-gray-400 to-gray-500"}`}
+          className={`p-4 sm:p-6 bg-gradient-to-br ${isActive ? colorScheme.bg : "from-gray-400 to-gray-500"}`}
         >
           {/* Loading Overlay */}
           {isAnyOperation && (
-            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-10 rounded-2xl">
+            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-10 rounded-xl sm:rounded-2xl">
               <div className="flex flex-col items-center">
-                <div className="w-10 h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                <span className="text-white text-sm mt-2 font-semibold">
+                <div className="w-8 h-8 sm:w-10 sm:h-10 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                <span className="text-white text-xs sm:text-sm mt-2 font-semibold">
                   {isDeleting ? "Suppression..." : "Mise à jour..."}
                 </span>
               </div>
@@ -116,20 +116,20 @@ const Settings = ({ dataCategory, dataPayment }) => {
           )}
 
           {/* Action Buttons */}
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex justify-between items-start mb-3 sm:mb-4">
             <button
               onClick={() => toggleCategoryStatusHandler(category._id)}
               disabled={isAnyOperation}
-              className={`p-2 rounded-lg bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all ${
+              className={`p-1.5 sm:p-2 rounded-lg bg-white/20 backdrop-blur-sm hover:bg-white/30 transition-all ${
                 isAnyOperation ? "cursor-not-allowed" : ""
               }`}
               title={isActive ? "Désactiver" : "Activer"}
             >
               {isToggling ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -148,16 +148,16 @@ const Settings = ({ dataCategory, dataPayment }) => {
             <button
               onClick={() => deleteCategoryHandler(category._id)}
               disabled={isAnyOperation}
-              className={`p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
+              className={`p-1.5 sm:p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
                 isAnyOperation ? "cursor-not-allowed" : ""
               }`}
               title="Supprimer"
             >
               {isDeleting ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : (
                 <svg
-                  className="w-5 h-5 text-white"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -174,20 +174,20 @@ const Settings = ({ dataCategory, dataPayment }) => {
           </div>
 
           {/* Category Name */}
-          <h3 className="text-white text-xl font-bold mb-3 truncate">
+          <h3 className="text-white text-base sm:text-xl font-bold mb-2 sm:mb-3 truncate">
             {category.categoryName}
           </h3>
 
           {/* Stats */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="bg-white/20 backdrop-blur-sm rounded-lg px-3 py-2">
+          <div className="flex items-center justify-between mb-2 sm:mb-3">
+            <div className="bg-white/20 backdrop-blur-sm rounded-lg px-2 py-1.5 sm:px-3 sm:py-2">
               <p className="text-white/80 text-xs uppercase">Vendus</p>
-              <p className="text-white text-2xl font-bold">
+              <p className="text-white text-xl sm:text-2xl font-bold">
                 {category.sold || 0}
               </p>
             </div>
             <div
-              className={`px-4 py-2 rounded-full font-bold text-sm ${
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm ${
                 isActive
                   ? "bg-green-500 text-white"
                   : "bg-gray-700 text-gray-200"
@@ -202,23 +202,25 @@ const Settings = ({ dataCategory, dataPayment }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 p-3 sm:p-4 lg:p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-800 mb-2">Paramètres</h1>
-          <p className="text-slate-600">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
+            Paramètres
+          </h1>
+          <p className="text-sm sm:text-base text-slate-600">
             Gérez vos catégories et moyens de paiement
           </p>
         </div>
 
         {/* Categories Section */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8 mb-8">
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8 mb-6 sm:mb-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 sm:mb-6">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -232,10 +234,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-800">
+                <h2 className="text-lg sm:text-2xl font-bold text-slate-800">
                   Catégories de Produits
                 </h2>
-                <p className="text-sm text-slate-500">
+                <p className="text-xs sm:text-sm text-slate-500">
                   {activeCategories.length} active
                   {activeCategories.length !== 1 ? "s" : ""} •{" "}
                   {inactiveCategories.length} inactive
@@ -245,10 +247,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
             </div>
             <Link
               href="/admin/settings/categories/add"
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg sm:rounded-xl hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg hover:shadow-xl font-semibold text-sm sm:text-base"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -266,12 +268,12 @@ const Settings = ({ dataCategory, dataPayment }) => {
 
           {/* Active Categories */}
           {activeCategories.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold text-green-600 mb-4 flex items-center gap-2">
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-base sm:text-lg font-semibold text-green-600 mb-3 sm:mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-green-500 rounded-full"></span>
                 Catégories Actives ({activeCategories.length})
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {activeCategories.map((category, index) =>
                   renderCategoryCard(category, index, true),
                 )}
@@ -282,11 +284,11 @@ const Settings = ({ dataCategory, dataPayment }) => {
           {/* Inactive Categories */}
           {inactiveCategories.length > 0 && (
             <div>
-              <h3 className="text-lg font-semibold text-gray-600 mb-4 flex items-center gap-2">
+              <h3 className="text-base sm:text-lg font-semibold text-gray-600 mb-3 sm:mb-4 flex items-center gap-2">
                 <span className="w-2 h-2 bg-gray-400 rounded-full"></span>
                 Catégories Inactives ({inactiveCategories.length})
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {inactiveCategories.map((category, index) =>
                   renderCategoryCard(category, index, false),
                 )}
@@ -295,9 +297,9 @@ const Settings = ({ dataCategory, dataPayment }) => {
           )}
 
           {activeCategories.length === 0 && inactiveCategories.length === 0 && (
-            <div className="text-center py-16 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300">
+            <div className="text-center py-12 sm:py-16 bg-slate-50 rounded-lg sm:rounded-xl border-2 border-dashed border-slate-300">
               <svg
-                className="w-20 h-20 mx-auto text-slate-300 mb-4"
+                className="w-16 h-16 sm:w-20 sm:h-20 mx-auto text-slate-300 mb-3 sm:mb-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -309,10 +311,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
                   d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"
                 />
               </svg>
-              <p className="text-lg font-semibold text-slate-600 mb-2">
+              <p className="text-base sm:text-lg font-semibold text-slate-600 mb-2">
                 Aucune catégorie
               </p>
-              <p className="text-slate-500">
+              <p className="text-sm sm:text-base text-slate-500">
                 Commencez par créer votre première catégorie
               </p>
             </div>
@@ -320,12 +322,12 @@ const Settings = ({ dataCategory, dataPayment }) => {
         </div>
 
         {/* Payment Types Section */}
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 p-8">
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-xl flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 p-4 sm:p-6 lg:p-8">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4 sm:mb-6">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg sm:rounded-xl flex items-center justify-center flex-shrink-0">
                 <svg
-                  className="w-6 h-6 text-white"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -339,10 +341,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold text-slate-800">
+                <h2 className="text-lg sm:text-2xl font-bold text-slate-800">
                   Moyens de Paiement
                 </h2>
-                <p className="text-sm text-slate-500">
+                <p className="text-xs sm:text-sm text-slate-500">
                   {dataPayment?.paymentTypes?.length || 0} moyen
                   {(dataPayment?.paymentTypes?.length || 0) !== 1
                     ? "s"
@@ -354,10 +356,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
             </div>
             <Link
               href="/admin/settings/paymentType/add"
-              className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold"
+              className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg sm:rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg hover:shadow-xl font-semibold text-sm sm:text-base"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4 sm:w-5 sm:h-5"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -374,20 +376,20 @@ const Settings = ({ dataCategory, dataPayment }) => {
           </div>
 
           {dataPayment?.paymentTypes && dataPayment.paymentTypes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
               {dataPayment.paymentTypes.map((payment) => {
                 const isDeleting = isLoading("deletingPayments", payment._id);
                 return (
                   <div
                     key={payment._id}
-                    className={`relative group bg-gradient-to-br from-emerald-500 to-green-600 rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all ${
+                    className={`relative group bg-gradient-to-br from-emerald-500 to-green-600 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg hover:shadow-2xl transition-all ${
                       isDeleting ? "opacity-50 scale-95" : "hover:scale-105"
                     }`}
                   >
                     {isDeleting && (
-                      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-2xl">
+                      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-xl sm:rounded-2xl">
                         <div className="flex flex-col items-center">
-                          <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <div className="w-6 h-6 sm:w-8 sm:h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
                           <span className="text-white text-xs mt-2">
                             Suppression...
                           </span>
@@ -398,16 +400,16 @@ const Settings = ({ dataCategory, dataPayment }) => {
                     <button
                       onClick={() => deletePaymentHandler(payment._id)}
                       disabled={isDeleting}
-                      className={`absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
+                      className={`absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 sm:p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
                         isDeleting ? "cursor-not-allowed" : ""
                       }`}
                       title="Supprimer"
                     >
                       {isDeleting ? (
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                       ) : (
                         <svg
-                          className="w-4 h-4 text-white"
+                          className="w-3 h-3 sm:w-4 sm:h-4 text-white"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -423,9 +425,9 @@ const Settings = ({ dataCategory, dataPayment }) => {
                     </button>
 
                     <div className="text-white">
-                      <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 rounded-lg sm:rounded-xl flex items-center justify-center mb-3 sm:mb-4">
                         <svg
-                          className="w-6 h-6"
+                          className="w-5 h-5 sm:w-6 sm:h-6"
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -437,10 +439,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
                           />
                         </svg>
                       </div>
-                      <h3 className="text-lg font-bold mb-2">
+                      <h3 className="text-base sm:text-lg font-bold mb-2 break-words">
                         {payment.paymentName}
                       </h3>
-                      <p className="text-white/90 font-mono text-sm">
+                      <p className="text-white/90 font-mono text-sm break-words">
                         {payment.paymentNumber}
                       </p>
                     </div>
@@ -449,9 +451,9 @@ const Settings = ({ dataCategory, dataPayment }) => {
               })}
             </div>
           ) : (
-            <div className="text-center py-16 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300">
+            <div className="text-center py-12 sm:py-16 bg-slate-50 rounded-lg sm:rounded-xl border-2 border-dashed border-slate-300">
               <svg
-                className="w-20 h-20 mx-auto text-slate-300 mb-4"
+                className="w-16 h-16 sm:w-20 sm:h-20 mx-auto text-slate-300 mb-3 sm:mb-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -463,10 +465,10 @@ const Settings = ({ dataCategory, dataPayment }) => {
                   d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
                 />
               </svg>
-              <p className="text-lg font-semibold text-slate-600 mb-2">
+              <p className="text-base sm:text-lg font-semibold text-slate-600 mb-2">
                 Aucun moyen de paiement
               </p>
-              <p className="text-slate-500">
+              <p className="text-sm sm:text-base text-slate-500">
                 Ajoutez votre premier moyen de paiement
               </p>
             </div>

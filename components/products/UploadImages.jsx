@@ -103,11 +103,13 @@ const UploadImages = memo(({ id }) => {
 
   if (!uploadConfig) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-8 px-4 flex items-center justify-center">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4 flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-slate-600 font-medium">Chargement...</p>
+            <div className="w-6 h-6 sm:w-8 sm:h-8 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-sm sm:text-base text-slate-600 font-medium">
+              Chargement...
+            </p>
           </div>
         </div>
       </div>
@@ -115,22 +117,24 @@ const UploadImages = memo(({ id }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-8 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 py-6 sm:py-8 px-3 sm:px-4">
       <div className="max-w-5xl mx-auto">
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-slate-800 mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
             Galerie du Produit
           </h1>
-          <p className="text-slate-600">Gérez les images de votre produit</p>
+          <p className="text-sm sm:text-base text-slate-600">
+            Gérez les images de votre produit
+          </p>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+          <div className="bg-gradient-to-r from-purple-500 to-pink-500 p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
                   <svg
-                    className="w-8 h-8 text-white"
+                    className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -144,10 +148,10 @@ const UploadImages = memo(({ id }) => {
                   </svg>
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">
+                  <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                     Images du produit
                   </h2>
-                  <p className="text-white/80">
+                  <p className="text-xs sm:text-sm text-white/80">
                     {productImages?.length || 0} image
                     {(productImages?.length || 0) !== 1 ? "s" : ""} • Max 10
                   </p>
@@ -163,10 +167,10 @@ const UploadImages = memo(({ id }) => {
                   <button
                     onClick={() => open()}
                     disabled={loading}
-                    className="flex items-center gap-2 px-6 py-3 bg-white text-purple-600 rounded-xl hover:bg-white/90 transition-all shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-white text-purple-600 rounded-lg sm:rounded-xl hover:bg-white/90 transition-all shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto"
                   >
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -185,12 +189,12 @@ const UploadImages = memo(({ id }) => {
             </div>
           </div>
 
-          <div className="p-8">
+          <div className="p-4 sm:p-6 lg:p-8">
             {productImages && productImages.length > 0 ? (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4">
                 {productImages.map((img) => (
                   <div key={img._id} className="relative group">
-                    <div className="aspect-square rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-purple-400 transition-all">
+                    <div className="aspect-square rounded-lg sm:rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-purple-400 transition-all">
                       <CldImage
                         src={img.public_id}
                         alt="Product"
@@ -208,11 +212,11 @@ const UploadImages = memo(({ id }) => {
                     <button
                       onClick={() => handleRemoveImage(img)}
                       disabled={loading}
-                      className="absolute -top-2 -right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
+                      className="absolute -top-1.5 -right-1.5 sm:-top-2 sm:-right-2 w-7 h-7 sm:w-8 sm:h-8 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
                       title="Supprimer"
                     >
                       <svg
-                        className="w-4 h-4"
+                        className="w-3 h-3 sm:w-4 sm:h-4"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -229,9 +233,9 @@ const UploadImages = memo(({ id }) => {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-16 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300">
+              <div className="text-center py-12 sm:py-16 bg-slate-50 rounded-lg sm:rounded-xl border-2 border-dashed border-slate-300">
                 <svg
-                  className="w-24 h-24 mx-auto text-slate-300 mb-4"
+                  className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto text-slate-300 mb-3 sm:mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -243,20 +247,20 @@ const UploadImages = memo(({ id }) => {
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                <p className="text-lg font-semibold text-slate-600 mb-2">
+                <p className="text-base sm:text-lg font-semibold text-slate-600 mb-2">
                   Aucune image
                 </p>
-                <p className="text-slate-500">
+                <p className="text-sm sm:text-base text-slate-500">
                   Cliquez sur "Ajouter des images" pour commencer
                 </p>
               </div>
             )}
 
-            <div className="mt-8 grid md:grid-cols-2 gap-4">
-              <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-                <div className="flex gap-3">
+            <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+              <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
+                <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -267,20 +271,20 @@ const UploadImages = memo(({ id }) => {
                     />
                   </svg>
                   <div>
-                    <p className="text-sm font-semibold text-blue-800 mb-1">
+                    <p className="text-xs sm:text-sm font-semibold text-blue-800 mb-1">
                       Formats acceptés
                     </p>
-                    <p className="text-sm text-blue-700">
+                    <p className="text-xs sm:text-sm text-blue-700">
                       JPEG, JPG, PNG, WebP
                     </p>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-purple-50 border-l-4 border-purple-500 rounded-lg p-4">
-                <div className="flex gap-3">
+              <div className="bg-purple-50 border-l-4 border-purple-500 rounded-lg p-3 sm:p-4">
+                <div className="flex gap-2 sm:gap-3">
                   <svg
-                    className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5"
+                    className="w-4 h-4 sm:w-5 sm:h-5 text-purple-500 flex-shrink-0 mt-0.5"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -291,10 +295,12 @@ const UploadImages = memo(({ id }) => {
                     />
                   </svg>
                   <div>
-                    <p className="text-sm font-semibold text-purple-800 mb-1">
+                    <p className="text-xs sm:text-sm font-semibold text-purple-800 mb-1">
                       Taille maximale
                     </p>
-                    <p className="text-sm text-purple-700">5 MB par image</p>
+                    <p className="text-xs sm:text-sm text-purple-700">
+                      5 MB par image
+                    </p>
                   </div>
                 </div>
               </div>

@@ -21,23 +21,23 @@ const HomePagePage = async () => {
   const hasHomePage = homePageData && homePageData.title;
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center">
+    <div className="space-y-4 sm:space-y-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-800">
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800">
             Gestion de la Page d'Accueil
           </h1>
-          <p className="text-slate-600 mt-1">
+          <p className="text-sm sm:text-base text-slate-600 mt-1">
             Personnalisez le contenu de votre page d'accueil
           </p>
         </div>
         {!hasHomePage && (
           <Link
             href="/admin/homepage/new"
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg font-semibold"
+            className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg sm:rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all shadow-lg font-semibold text-sm sm:text-base"
           >
             <svg
-              className="w-5 h-5"
+              className="w-4 h-4 sm:w-5 sm:h-5"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -55,10 +55,10 @@ const HomePagePage = async () => {
       </div>
 
       {hasHomePage && (
-        <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-          <div className="flex gap-3">
+        <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
+          <div className="flex gap-2 sm:gap-3">
             <svg
-              className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+              className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
               fill="currentColor"
               viewBox="0 0 20 20"
             >
@@ -69,10 +69,10 @@ const HomePagePage = async () => {
               />
             </svg>
             <div>
-              <p className="text-sm font-semibold text-blue-800 mb-1">
+              <p className="text-xs sm:text-sm font-semibold text-blue-800 mb-1">
                 Information
               </p>
-              <p className="text-sm text-blue-700">
+              <p className="text-xs sm:text-sm text-blue-700">
                 Une seule page d'accueil peut exister. Pour modifier le contenu,
                 utilisez le bouton "Modifier" ci-dessous.
               </p>

@@ -10,21 +10,25 @@ import InsightsPanel from "./InsightsPanel";
 export default function MainDashboard({ data, insights }) {
   if (!data) {
     return (
-      <div className="p-6">
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-          <p className="text-red-800 font-semibold">Erreur de chargement</p>
-          <p className="text-red-600 text-sm mt-1">Aucune donnée disponible</p>
+      <div className="p-3 sm:p-4 lg:p-6">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-3 sm:p-4">
+          <p className="text-sm sm:text-base text-red-800 font-semibold">
+            Erreur de chargement
+          </p>
+          <p className="text-xs sm:text-sm text-red-600 mt-1">
+            Aucune donnée disponible
+          </p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-4 sm:space-y-6 p-3 sm:p-4 lg:p-6">
       {/* Date + Heure */}
-      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl p-6 text-white shadow-lg">
-        <h1 className="text-2xl font-bold">Bonjour Admin 👋</h1>
-        <p className="text-blue-100 mt-1">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 text-white shadow-lg">
+        <h1 className="text-xl sm:text-2xl font-bold">Bonjour Admin 👋</h1>
+        <p className="text-xs sm:text-sm text-blue-100 mt-1">
           {new Date().toLocaleDateString("fr-FR", {
             weekday: "long",
             year: "numeric",
@@ -39,7 +43,9 @@ export default function MainDashboard({ data, insights }) {
 
       {/* KPIs Aujourd'hui */}
       <div>
-        <h2 className="text-xl font-bold mb-4">📊 Aujourd'hui vs Hier</h2>
+        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
+          📊 Aujourd'hui vs Hier
+        </h2>
         <DailyCards data={data.summary} />
       </div>
 
@@ -47,8 +53,8 @@ export default function MainDashboard({ data, insights }) {
       <InsightsPanel insights={insights} />
 
       {/* Graphiques */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-xl p-6 shadow-lg">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg overflow-hidden">
           <SimpleLineChart
             title="Commandes - 7 derniers jours"
             data={data.summary.trends.weekOrders.map((d) => d.count)}
@@ -56,7 +62,7 @@ export default function MainDashboard({ data, insights }) {
           />
         </div>
 
-        <div className="bg-white rounded-xl p-6 shadow-lg">
+        <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg overflow-hidden">
           <SimpleBarChart
             title="Top 5 Produits cette semaine"
             data={data.summary.trends.topProducts.map((p) => ({
@@ -68,16 +74,18 @@ export default function MainDashboard({ data, insights }) {
       </div>
 
       {/* Semaine */}
-      <div className="bg-white rounded-xl p-6 shadow-lg">
-        <h2 className="text-xl font-bold mb-4">📅 Cette Semaine</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <p className="text-sm text-gray-500">Commandes</p>
-            <p className="text-3xl font-bold text-blue-600">
+      <div className="bg-white rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-lg">
+        <h2 className="text-lg sm:text-xl font-bold mb-3 sm:mb-4">
+          📅 Cette Semaine
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+          <div className="p-3 sm:p-4 bg-blue-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-500">Commandes</p>
+            <p className="text-2xl sm:text-3xl font-bold text-blue-600 my-1 sm:my-2">
               {data.weekly.thisWeek.orders}
             </p>
             <p
-              className={`text-sm mt-1 ${
+              className={`text-xs sm:text-sm ${
                 data.weekly.comparison.ordersGrowth >= 0
                   ? "text-green-600"
                   : "text-red-600"
@@ -89,13 +97,13 @@ export default function MainDashboard({ data, insights }) {
             </p>
           </div>
 
-          <div>
-            <p className="text-sm text-gray-500">Revenus</p>
-            <p className="text-3xl font-bold text-green-600">
+          <div className="p-3 sm:p-4 bg-green-50 rounded-lg">
+            <p className="text-xs sm:text-sm text-gray-500">Revenus</p>
+            <p className="text-2xl sm:text-3xl font-bold text-green-600 my-1 sm:my-2 break-words">
               {data.weekly.thisWeek.revenue.toLocaleString()} FDj
             </p>
             <p
-              className={`text-sm mt-1 ${
+              className={`text-xs sm:text-sm ${
                 data.weekly.comparison.revenueGrowth >= 0
                   ? "text-green-600"
                   : "text-red-600"

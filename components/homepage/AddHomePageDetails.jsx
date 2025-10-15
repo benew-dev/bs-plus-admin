@@ -132,11 +132,13 @@ const AddHomePageDetails = () => {
 
   if (!uploadConfig) {
     return (
-      <div className="flex items-center justify-center py-12">
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-slate-200">
+      <div className="flex items-center justify-center py-8 sm:py-12">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl p-6 sm:p-8 border border-slate-200">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-            <p className="text-slate-600 font-medium">Chargement...</p>
+            <div className="w-6 h-6 sm:w-8 sm:h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+            <p className="text-sm sm:text-base text-slate-600 font-medium">
+              Chargement...
+            </p>
           </div>
         </div>
       </div>
@@ -144,22 +146,22 @@ const AddHomePageDetails = () => {
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-4xl font-bold text-slate-800 mb-2">
+    <div className="max-w-4xl mx-auto px-3 sm:px-0">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-800 mb-2">
           Nouvelle Page d'Accueil
         </h1>
-        <p className="text-slate-600">
+        <p className="text-sm sm:text-base text-slate-600">
           Créez le contenu de votre page d'accueil
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-6">
-          <div className="flex items-center gap-4">
-            <div className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center">
+      <div className="bg-white rounded-xl sm:rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+        <div className="bg-gradient-to-r from-indigo-500 to-purple-500 p-4 sm:p-6">
+          <div className="flex items-center gap-3 sm:gap-4">
+            <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 bg-white/20 backdrop-blur-sm rounded-xl sm:rounded-2xl flex items-center justify-center flex-shrink-0">
               <svg
-                className="w-8 h-8 text-white"
+                className="w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -173,26 +175,29 @@ const AddHomePageDetails = () => {
               </svg>
             </div>
             <div>
-              <h2 className="text-2xl font-bold text-white">
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white">
                 Configurer la page d'accueil
               </h2>
-              <p className="text-white/80">
+              <p className="text-xs sm:text-sm text-white/80">
                 Remplissez les informations ci-dessous
               </p>
             </div>
           </div>
         </div>
 
-        <form onSubmit={submitHandler} className="p-8 space-y-6">
+        <form
+          onSubmit={submitHandler}
+          className="p-4 sm:p-6 lg:p-8 space-y-4 sm:space-y-6"
+        >
           {/* Titre */}
           <div className="group">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
               Titre <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -213,20 +218,20 @@ const AddHomePageDetails = () => {
                 placeholder="Ex: Bienvenue sur notre boutique"
                 required
                 minLength={3}
-                className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700"
+                className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700"
               />
             </div>
           </div>
 
           {/* Sous-titre */}
           <div className="group">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
               Sous-titre <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <div className="absolute inset-y-0 left-0 pl-3 sm:pl-4 flex items-center pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -247,20 +252,20 @@ const AddHomePageDetails = () => {
                 placeholder="Ex: Découvrez nos produits de qualité"
                 required
                 minLength={3}
-                className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700"
+                className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700"
               />
             </div>
           </div>
 
           {/* Texte */}
           <div className="group">
-            <label className="block text-sm font-semibold text-slate-700 mb-2">
+            <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-2">
               Texte <span className="text-red-500">*</span>
             </label>
             <div className="relative">
-              <div className="absolute top-3 left-4 pointer-events-none">
+              <div className="absolute top-2.5 sm:top-3 left-3 sm:left-4 pointer-events-none">
                 <svg
-                  className="w-5 h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
+                  className="w-4 h-4 sm:w-5 sm:h-5 text-slate-400 group-focus-within:text-indigo-500 transition-colors"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -281,19 +286,19 @@ const AddHomePageDetails = () => {
                 placeholder="Description complète de votre page d'accueil..."
                 required
                 minLength={10}
-                className="w-full pl-12 pr-4 py-3 border-2 border-slate-200 rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700 resize-none"
+                className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border-2 border-slate-200 rounded-lg sm:rounded-xl focus:border-indigo-500 focus:ring-4 focus:ring-indigo-100 transition-all outline-none text-slate-700 resize-none"
               ></textarea>
             </div>
           </div>
 
           {/* Section Upload Image */}
-          <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-xl p-6 border-2 border-dashed border-indigo-300">
-            <div className="flex items-center justify-between mb-4">
+          <div className="bg-gradient-to-br from-slate-50 to-indigo-50 rounded-lg sm:rounded-xl p-4 sm:p-6 border-2 border-dashed border-indigo-300">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4">
               <div>
-                <h3 className="text-lg font-semibold text-slate-800">
+                <h3 className="text-base sm:text-lg font-semibold text-slate-800">
                   Image principale <span className="text-red-500">*</span>
                 </h3>
-                <p className="text-sm text-slate-600">
+                <p className="text-xs sm:text-sm text-slate-600">
                   Formats acceptés: JPEG, PNG, WebP (Max: 5MB)
                 </p>
               </div>
@@ -309,10 +314,10 @@ const AddHomePageDetails = () => {
                       type="button"
                       onClick={() => open()}
                       disabled={loading}
-                      className="flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-indigo-600 text-white rounded-lg sm:rounded-xl hover:bg-indigo-700 transition-all shadow-lg font-semibold disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base w-full sm:w-auto"
                     >
                       <svg
-                        className="w-5 h-5"
+                        className="w-4 h-4 sm:w-5 sm:h-5"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -334,7 +339,7 @@ const AddHomePageDetails = () => {
             {/* Affichage de l'image */}
             {homePageData.image ? (
               <div className="relative group">
-                <div className="rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-all">
+                <div className="rounded-lg sm:rounded-xl overflow-hidden border-2 border-slate-200 group-hover:border-indigo-400 transition-all">
                   <CldImage
                     src={homePageData.image.public_id}
                     alt="Homepage"
@@ -351,11 +356,11 @@ const AddHomePageDetails = () => {
                   type="button"
                   onClick={handleRemoveImage}
                   disabled={loading}
-                  className="absolute top-4 right-4 w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
+                  className="absolute top-2 right-2 sm:top-4 sm:right-4 w-8 h-8 sm:w-10 sm:h-10 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-600 disabled:opacity-50 shadow-lg"
                   title="Supprimer"
                 >
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -370,9 +375,9 @@ const AddHomePageDetails = () => {
                 </button>
               </div>
             ) : (
-              <div className="text-center py-16 bg-white rounded-xl border-2 border-dashed border-slate-300">
+              <div className="text-center py-12 sm:py-16 bg-white rounded-lg sm:rounded-xl border-2 border-dashed border-slate-300">
                 <svg
-                  className="w-24 h-24 mx-auto text-slate-300 mb-4"
+                  className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mx-auto text-slate-300 mb-3 sm:mb-4"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -384,10 +389,10 @@ const AddHomePageDetails = () => {
                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                   />
                 </svg>
-                <p className="text-lg font-semibold text-slate-600 mb-2">
+                <p className="text-base sm:text-lg font-semibold text-slate-600 mb-2">
                   Aucune image
                 </p>
-                <p className="text-slate-500">
+                <p className="text-sm sm:text-base text-slate-500">
                   Cliquez sur "Ajouter une image" pour commencer
                 </p>
               </div>
@@ -395,10 +400,10 @@ const AddHomePageDetails = () => {
           </div>
 
           {/* Info Box */}
-          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-4">
-            <div className="flex gap-3">
+          <div className="bg-blue-50 border-l-4 border-blue-500 rounded-lg p-3 sm:p-4">
+            <div className="flex gap-2 sm:gap-3">
               <svg
-                className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
+                className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500 flex-shrink-0 mt-0.5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
               >
@@ -409,10 +414,10 @@ const AddHomePageDetails = () => {
                 />
               </svg>
               <div>
-                <p className="text-sm font-semibold text-blue-800 mb-1">
+                <p className="text-xs sm:text-sm font-semibold text-blue-800 mb-1">
                   À savoir
                 </p>
-                <p className="text-sm text-blue-700">
+                <p className="text-xs sm:text-sm text-blue-700">
                   Ces informations seront affichées sur la page d'accueil de
                   votre site web. Assurez-vous qu'elles sont attractives et
                   représentatives de votre marque.
@@ -422,21 +427,21 @@ const AddHomePageDetails = () => {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-4">
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-2.5 sm:py-3 px-4 sm:px-6 rounded-lg sm:rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transform hover:scale-105 transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none text-sm sm:text-base"
             >
               {loading ? (
                 <>
-                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                   Traitement...
                 </>
               ) : (
                 <>
                   <svg
-                    className="w-5 h-5"
+                    className="w-4 h-4 sm:w-5 sm:h-5"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -456,7 +461,7 @@ const AddHomePageDetails = () => {
               type="button"
               onClick={() => router.back()}
               disabled={loading}
-              className="px-6 py-3 border-2 border-slate-300 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 sm:px-6 py-2.5 sm:py-3 border-2 border-slate-300 text-slate-700 rounded-lg sm:rounded-xl font-semibold hover:bg-slate-50 transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
             >
               Annuler
             </button>

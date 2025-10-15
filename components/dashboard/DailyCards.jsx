@@ -30,28 +30,32 @@ export default function DailyCards({ data }) {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
       {cards.map((card, index) => (
         <div
           key={index}
-          className={`${card.bgColor} border-2 ${card.borderColor} rounded-xl p-6`}
+          className={`${card.bgColor} border-2 ${card.borderColor} rounded-lg sm:rounded-xl p-4 sm:p-5 lg:p-6 transition-all hover:shadow-md`}
         >
           <div className="flex justify-between items-start mb-2">
-            <p className="text-sm font-semibold text-gray-700">{card.title}</p>
-            <span className="text-2xl">{card.icon}</span>
+            <p className="text-xs sm:text-sm font-semibold text-gray-700">
+              {card.title}
+            </p>
+            <span className="text-xl sm:text-2xl">{card.icon}</span>
           </div>
 
-          <p className="text-3xl font-bold text-gray-900 mb-2">{card.value}</p>
+          <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2 break-words">
+            {card.value}
+          </p>
 
           {card.change !== undefined && (
             <div
-              className={`flex items-center text-sm ${
+              className={`flex flex-wrap items-center gap-1 text-xs sm:text-sm ${
                 card.change >= 0 ? "text-green-600" : "text-red-600"
               }`}
             >
-              <span className="mr-1">{card.change >= 0 ? "↗️" : "↘️"}</span>
+              <span>{card.change >= 0 ? "↗️" : "↘️"}</span>
               <span className="font-semibold">{card.changePercent}%</span>
-              <span className="ml-1 text-gray-500">
+              <span className="text-gray-500">
                 vs hier ({card.change >= 0 ? "+" : ""}
                 {card.change})
               </span>
