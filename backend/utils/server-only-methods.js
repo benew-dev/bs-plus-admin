@@ -9,19 +9,29 @@ import { getCookieName } from "@/helpers/helpers";
  * Récupérer les données de la page d'accueil
  */
 export const getHomePageData = async () => {
+  const nextCookies = await cookies();
+
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
+
   try {
-    await connectDB();
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/api/homepage`,
+      {
+        headers: {
+          Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
+        },
+      },
+    );
 
-    const homePage = await HomePage.findOne().sort({ createdAt: -1 }).lean();
-
-    return homePage
-      ? JSON.parse(JSON.stringify(homePage))
-      : {
-          title: "",
-          subtitle: "",
-          text: "",
-          image: null,
-        };
+    return (
+      data?.data || {
+        title: "",
+        subtitle: "",
+        text: "",
+        image: null,
+      }
+    );
   } catch (error) {
     console.error("Error fetching homepage data:", error);
     return {
@@ -317,8 +327,6 @@ export const getDashboardData = async () => {
   return data;
 };
 
-// À ajouter dans backend/utils/server-only-methods.js
-
 export const getInsightsData = async () => {
   const nextCookies = await cookies();
 
@@ -336,8 +344,6 @@ export const getInsightsData = async () => {
 
   return data;
 };
-
-// À ajouter dans backend/utils/server-only-methods.js
 
 // MÉTHODE POUR LES STATISTIQUES HEBDOMADAIRES
 export const getWeeklyStats = async () => {
