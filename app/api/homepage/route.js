@@ -1,10 +1,20 @@
 import { NextResponse } from "next/server";
 import connectDB from "@/backend/config/dbConnect";
 import HomePage from "@/backend/models/homepage";
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 
 // GET - Récupérer la page d'accueil
 export async function GET(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     await connectDB();
 
     const homePage = await HomePage.findOne().sort({ createdAt: -1 });
@@ -28,6 +38,12 @@ export async function GET(req) {
 // POST - Créer une page d'accueil (uniquement si aucune n'existe)
 export async function POST(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     await connectDB();
 
     // Vérifier si une page d'accueil existe déjà
@@ -86,6 +102,12 @@ export async function POST(req) {
 // PUT - Mettre à jour la page d'accueil
 export async function PUT(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     await connectDB();
 
     const body = await req.json();

@@ -1,3 +1,7 @@
+import {
+  authorizeRoles,
+  isAuthenticatedUser,
+} from "@/backend/middlewares/auth";
 import { v2 as cloudinary } from "cloudinary";
 import { NextResponse } from "next/server";
 
@@ -11,6 +15,12 @@ cloudinary.config({
 
 export async function POST(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     const body = await req.json();
     const { paramsToSign } = body;
 
@@ -31,8 +41,14 @@ export async function POST(req) {
 }
 
 // GET - Récupérer les paramètres de configuration pour l'upload
-export async function GET() {
+export async function GET(req) {
   try {
+    // Vérifier l'authentification
+    await isAuthenticatedUser(req, NextResponse);
+
+    // Vérifier le role
+    authorizeRoles(NextResponse, "admin");
+
     const timestamp = Math.round(new Date().getTime() / 1000);
 
     // Paramètres d'upload
