@@ -3,6 +3,7 @@
 import { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import { HandCoins } from "lucide-react";
 import SettingsContext from "@/context/SettingsContext";
 
 const Settings = ({ dataCategory, dataPayment }) => {
@@ -43,6 +44,7 @@ const Settings = ({ dataCategory, dataPayment }) => {
     "D-MONEY": "from-purple-500 to-purple-600",
     "CAC-PAY": "from-green-500 to-green-600",
     "BCI-PAY": "from-orange-500 to-orange-600",
+    CASH: "from-emerald-500 to-emerald-600", // Nouveau: couleur pour CASH
   };
 
   const setLoadingState = (type, id, isLoading) => {
@@ -355,7 +357,8 @@ const Settings = ({ dataCategory, dataPayment }) => {
                     ? "s"
                     : ""}{" "}
                   configuré
-                  {(dataPayment?.paymentTypes?.length || 0) !== 1 ? "s" : ""}
+                  {(dataPayment?.paymentTypes?.length || 0) !== 1 ? "s" : ""} •
+                  Maximum 5
                 </p>
               </div>
             </div>
@@ -381,12 +384,14 @@ const Settings = ({ dataCategory, dataPayment }) => {
           </div>
 
           {dataPayment?.paymentTypes && dataPayment.paymentTypes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
               {dataPayment.paymentTypes.map((payment) => {
                 const isDeleting = isLoading("deletingPayments", payment._id);
                 const platformColor =
                   platformColors[payment.platform] ||
                   "from-emerald-500 to-green-600";
+                const isCash =
+                  payment.platform === "CASH" || payment.isCashPayment;
 
                 return (
                   <div
@@ -435,18 +440,22 @@ const Settings = ({ dataCategory, dataPayment }) => {
 
                     <div className="text-white">
                       <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
-                        <svg
-                          className="w-6 h-6"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                          <path
-                            fillRule="evenodd"
-                            d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        {isCash ? (
+                          <HandCoins size={24} />
+                        ) : (
+                          <svg
+                            className="w-6 h-6"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                            <path
+                              fillRule="evenodd"
+                              d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        )}
                       </div>
 
                       {/* Platform Badge */}
@@ -459,25 +468,39 @@ const Settings = ({ dataCategory, dataPayment }) => {
                         </span>
                       </div>
 
-                      {/* Account Holder Name */}
-                      <div className="mb-2">
-                        <p className="text-white/70 text-xs uppercase mb-1">
-                          Titulaire
-                        </p>
-                        <p className="text-white font-semibold">
-                          {payment.paymentName}
-                        </p>
-                      </div>
+                      {/* Affichage conditionnel selon le type */}
+                      {isCash ? (
+                        <div className="space-y-2">
+                          <p className="text-white/90 text-sm">
+                            {payment.description || "Paiement en espèces"}
+                          </p>
+                          <p className="text-white/70 text-xs">
+                            À la livraison
+                          </p>
+                        </div>
+                      ) : (
+                        <>
+                          {/* Account Holder Name */}
+                          <div className="mb-2">
+                            <p className="text-white/70 text-xs uppercase mb-1">
+                              Titulaire
+                            </p>
+                            <p className="text-white font-semibold">
+                              {payment.paymentName}
+                            </p>
+                          </div>
 
-                      {/* Account Number */}
-                      <div>
-                        <p className="text-white/70 text-xs uppercase mb-1">
-                          Numéro
-                        </p>
-                        <p className="text-white/90 font-mono text-sm">
-                          {payment.paymentNumber}
-                        </p>
-                      </div>
+                          {/* Account Number */}
+                          <div>
+                            <p className="text-white/70 text-xs uppercase mb-1">
+                              Numéro
+                            </p>
+                            <p className="text-white/90 font-mono text-sm">
+                              {payment.paymentNumber}
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 );
