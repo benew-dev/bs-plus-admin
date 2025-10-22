@@ -3,7 +3,6 @@
 import SettingsContext from "@/context/SettingsContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { HandCoins } from "lucide-react";
 
 const AddPaymentType = () => {
   const { newPaymentType, error, clearErrors } = useContext(SettingsContext);
@@ -33,7 +32,7 @@ const AddPaymentType = () => {
       value: "CASH",
       label: "ESPÈCES",
       color: "from-emerald-500 to-emerald-600",
-      icon: HandCoins,
+      hasCashIcon: true,
     },
   ];
 
@@ -117,39 +116,51 @@ const AddPaymentType = () => {
                 Plateforme de paiement <span className="text-red-500">*</span>
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {platforms.map((plat) => {
-                  const IconComponent = plat.icon;
-                  return (
-                    <button
-                      key={plat.value}
-                      type="button"
-                      onClick={() => setPlatform(plat.value)}
-                      className={`p-4 rounded-xl border-2 transition-all ${
-                        platform === plat.value
-                          ? `border-green-500 bg-gradient-to-br ${plat.color} text-white shadow-lg scale-105`
-                          : "border-slate-200 bg-white text-slate-700 hover:border-green-300 hover:shadow-md"
-                      }`}
-                    >
-                      <div className="flex items-center justify-center gap-2">
-                        {platform === plat.value && (
-                          <svg
-                            className="w-5 h-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                        {IconComponent && <IconComponent size={18} />}
-                        <span className="font-bold">{plat.label}</span>
-                      </div>
-                    </button>
-                  );
-                })}
+                {platforms.map((plat) => (
+                  <button
+                    key={plat.value}
+                    type="button"
+                    onClick={() => setPlatform(plat.value)}
+                    className={`p-4 rounded-xl border-2 transition-all ${
+                      platform === plat.value
+                        ? `border-green-500 bg-gradient-to-br ${plat.color} text-white shadow-lg scale-105`
+                        : "border-slate-200 bg-white text-slate-700 hover:border-green-300 hover:shadow-md"
+                    }`}
+                  >
+                    <div className="flex items-center justify-center gap-2">
+                      {platform === plat.value && (
+                        <svg
+                          className="w-5 h-5"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      )}
+                      {/* Icône spéciale pour CASH */}
+                      {plat.hasCashIcon && (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                          strokeWidth={2}
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      )}
+                      <span className="font-bold">{plat.label}</span>
+                    </div>
+                  </button>
+                ))}
               </div>
               <p className="mt-2 text-sm text-slate-500">
                 Sélectionnez la plateforme de paiement
@@ -160,10 +171,19 @@ const AddPaymentType = () => {
             {isCashPayment && (
               <div className="bg-emerald-50 border-l-4 border-emerald-500 rounded-lg p-4">
                 <div className="flex gap-3">
-                  <HandCoins
-                    className="text-emerald-600 flex-shrink-0 mt-0.5"
-                    size={20}
-                  />
+                  <svg
+                    className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
                   <div>
                     <p className="text-sm font-semibold text-emerald-800 mb-1">
                       Paiement en espèces
@@ -287,8 +307,20 @@ const AddPaymentType = () => {
                 className={`bg-gradient-to-br ${selectedPlatform?.color || "from-green-500 to-emerald-600"} rounded-xl p-6 text-white`}
               >
                 <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
-                  {selectedPlatform?.icon ? (
-                    <selectedPlatform.icon size={24} />
+                  {selectedPlatform?.hasCashIcon ? (
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      />
+                    </svg>
                   ) : (
                     <svg
                       className="w-6 h-6"
