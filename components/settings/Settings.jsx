@@ -43,7 +43,7 @@ const Settings = ({ dataCategory, dataPayment }) => {
     "D-MONEY": "from-purple-500 to-purple-600",
     "CAC-PAY": "from-green-500 to-green-600",
     "BCI-PAY": "from-orange-500 to-orange-600",
-    CASH: "from-emerald-500 to-emerald-600", // Nouveau: couleur pour CASH
+    CASH: "from-gray-700 to-gray-900",
   };
 
   const setLoadingState = (type, id, isLoading) => {
@@ -94,6 +94,15 @@ const Settings = ({ dataCategory, dataPayment }) => {
     dataCategory?.categories?.filter((cat) => cat.isActive) || [];
   const inactiveCategories =
     dataCategory?.categories?.filter((cat) => !cat.isActive) || [];
+
+  // Séparer les moyens de paiement CASH et non-CASH
+  const cashPayment = dataPayment?.paymentTypes?.find(
+    (p) => p.platform === "CASH" || p.isCashPayment,
+  );
+  const electronicPayments =
+    dataPayment?.paymentTypes?.filter(
+      (p) => p.platform !== "CASH" && !p.isCashPayment,
+    ) || [];
 
   const renderCategoryCard = (category, index, isActive) => {
     const isDeleting = isLoading("deletingCategories", category._id);
@@ -356,8 +365,8 @@ const Settings = ({ dataCategory, dataPayment }) => {
                     ? "s"
                     : ""}{" "}
                   configuré
-                  {(dataPayment?.paymentTypes?.length || 0) !== 1 ? "s" : ""} •
-                  Maximum 5
+                  {(dataPayment?.paymentTypes?.length || 0) !== 1 ? "s" : ""}
+                  {cashPayment && " • Espèces activées"}
                 </p>
               </div>
             </div>
@@ -382,140 +391,289 @@ const Settings = ({ dataCategory, dataPayment }) => {
             </Link>
           </div>
 
+          {/* Message informatif si CASH est activé */}
+          {cashPayment && (
+            <div className="mb-6 bg-green-50 border-l-4 border-green-500 rounded-lg p-4">
+              <div className="flex items-start gap-3">
+                <svg
+                  className="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                  />
+                </svg>
+                <div>
+                  <p className="text-sm font-semibold text-green-800 mb-1">
+                    Paiement en espèces activé
+                  </p>
+                  <p className="text-sm text-green-700">
+                    Les clients peuvent maintenant choisir de payer en espèces
+                    lors de la récupération de leur commande.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
           {dataPayment?.paymentTypes && dataPayment.paymentTypes.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
-              {dataPayment.paymentTypes.map((payment) => {
-                const isDeleting = isLoading("deletingPayments", payment._id);
-                const platformColor =
-                  platformColors[payment.platform] ||
-                  "from-emerald-500 to-green-600";
-                const isCash =
-                  payment.platform === "CASH" || payment.isCashPayment;
+            <div className="space-y-6">
+              {/* Section des paiements électroniques */}
+              {electronicPayments.length > 0 && (
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-600 mb-4 uppercase tracking-wider">
+                    Paiements électroniques ({electronicPayments.length})
+                  </h3>
+                  <div className="flex flex-col gap-4">
+                    {electronicPayments.map((payment) => {
+                      const isDeleting = isLoading(
+                        "deletingPayments",
+                        payment._id,
+                      );
+                      const platformColor =
+                        platformColors[payment.platform] ||
+                        "from-emerald-500 to-green-600";
 
-                return (
-                  <div
-                    key={payment._id}
-                    className={`relative group bg-gradient-to-br ${platformColor} rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all ${
-                      isDeleting ? "opacity-50 scale-95" : "hover:scale-105"
-                    }`}
-                  >
-                    {isDeleting && (
-                      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-2xl">
-                        <div className="flex flex-col items-center">
-                          <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-                          <span className="text-white text-xs mt-2">
-                            Suppression...
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    <button
-                      onClick={() => deletePaymentHandler(payment._id)}
-                      disabled={isDeleting}
-                      className={`absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
-                        isDeleting ? "cursor-not-allowed" : ""
-                      }`}
-                      title="Supprimer"
-                    >
-                      {isDeleting ? (
-                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                      ) : (
-                        <svg
-                          className="w-4 h-4 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                      return (
+                        <div
+                          key={payment._id}
+                          className={`relative group bg-gradient-to-r ${platformColor} rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all ${
+                            isDeleting
+                              ? "opacity-50 scale-95"
+                              : "hover:scale-[1.02]"
+                          }`}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M6 18L18 6M6 6l12 12"
-                          />
-                        </svg>
-                      )}
-                    </button>
+                          {isDeleting && (
+                            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-2xl">
+                              <div className="flex flex-col items-center">
+                                <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                                <span className="text-white text-xs mt-2">
+                                  Suppression...
+                                </span>
+                              </div>
+                            </div>
+                          )}
 
-                    <div className="text-white">
-                      <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mb-4">
-                        {isCash ? (
-                          <svg
-                            className="w-6 h-6"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                            strokeWidth={2}
+                          <button
+                            onClick={() => deletePaymentHandler(payment._id)}
+                            disabled={isDeleting}
+                            className={`absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
+                              isDeleting ? "cursor-not-allowed" : ""
+                            }`}
+                            title="Supprimer"
                           >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                        ) : (
-                          <svg
-                            className="w-6 h-6"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                            <path
-                              fillRule="evenodd"
-                              d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        )}
-                      </div>
+                            {isDeleting ? (
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                              <svg
+                                className="w-4 h-4 text-white"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            )}
+                          </button>
 
-                      {/* Platform Badge */}
-                      <div className="flex items-center gap-2 mb-3">
-                        <h3 className="text-lg font-bold">
-                          {payment.platform}
-                        </h3>
-                        <span className="px-2 py-1 bg-white/20 rounded-full text-xs">
-                          ✓
-                        </span>
-                      </div>
+                          <div className="flex items-center gap-6 text-white pr-12">
+                            {/* Icon */}
+                            <div className="flex-shrink-0 w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                              <svg
+                                className="w-7 h-7"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
+                                <path
+                                  fillRule="evenodd"
+                                  d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
 
-                      {/* Affichage conditionnel selon le type */}
-                      {isCash ? (
-                        <div className="space-y-2">
-                          <p className="text-white/90 text-sm">
-                            {payment.description || "Paiement en espèces"}
-                          </p>
-                          <p className="text-white/70 text-xs">
-                            À la livraison
-                          </p>
+                            {/* Content - Responsive layout */}
+                            <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                              {/* Left section - Platform name */}
+                              <div className="flex items-center gap-3">
+                                <h3 className="text-xl font-bold">
+                                  {payment.platform}
+                                </h3>
+                                <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">
+                                  ✓ ACTIF
+                                </span>
+                              </div>
+
+                              {/* Right section - Payment details */}
+                              <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                                {/* Account Holder */}
+                                <div className="flex items-center gap-2">
+                                  <span className="text-white/70 text-xs uppercase">
+                                    Titulaire:
+                                  </span>
+                                  <span className="text-white font-semibold">
+                                    {payment.paymentName}
+                                  </span>
+                                </div>
+
+                                {/* Separator */}
+                                <div className="hidden sm:block w-px h-8 bg-white/20"></div>
+
+                                {/* Account Number */}
+                                <div className="flex items-center gap-2">
+                                  <span className="text-white/70 text-xs uppercase">
+                                    N°:
+                                  </span>
+                                  <span className="text-white/90 font-mono text-sm font-semibold">
+                                    {payment.paymentNumber}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      ) : (
-                        <>
-                          {/* Account Holder Name */}
-                          <div className="mb-2">
-                            <p className="text-white/70 text-xs uppercase mb-1">
-                              Titulaire
-                            </p>
-                            <p className="text-white font-semibold">
-                              {payment.paymentName}
-                            </p>
-                          </div>
-
-                          {/* Account Number */}
-                          <div>
-                            <p className="text-white/70 text-xs uppercase mb-1">
-                              Numéro
-                            </p>
-                            <p className="text-white/90 font-mono text-sm">
-                              {payment.paymentNumber}
-                            </p>
-                          </div>
-                        </>
-                      )}
-                    </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              )}
+
+              {/* Section paiement cash (layout horizontal aussi) */}
+              {cashPayment && (
+                <div>
+                  <h3 className="text-sm font-semibold text-slate-600 mb-4 uppercase tracking-wider flex items-center gap-2">
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                      />
+                    </svg>
+                    Paiement en espèces
+                  </h3>
+                  <div className="flex flex-col gap-4">
+                    {(() => {
+                      const isDeleting = isLoading(
+                        "deletingPayments",
+                        cashPayment._id,
+                      );
+                      const platformColor = platformColors.CASH;
+
+                      return (
+                        <div
+                          className={`relative group bg-gradient-to-r ${platformColor} rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all ${
+                            isDeleting
+                              ? "opacity-50 scale-95"
+                              : "hover:scale-[1.02]"
+                          }`}
+                        >
+                          {isDeleting && (
+                            <div className="absolute inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center rounded-2xl">
+                              <div className="flex flex-col items-center">
+                                <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
+                                <span className="text-white text-xs mt-2">
+                                  Suppression...
+                                </span>
+                              </div>
+                            </div>
+                          )}
+
+                          <button
+                            onClick={() =>
+                              deletePaymentHandler(cashPayment._id)
+                            }
+                            disabled={isDeleting}
+                            className={`absolute top-3 right-3 p-2 rounded-lg bg-red-500/80 backdrop-blur-sm hover:bg-red-600 transition-all ${
+                              isDeleting ? "cursor-not-allowed" : ""
+                            }`}
+                            title="Supprimer"
+                          >
+                            {isDeleting ? (
+                              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            ) : (
+                              <svg
+                                className="w-4 h-4 text-white"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M6 18L18 6M6 6l12 12"
+                                />
+                              </svg>
+                            )}
+                          </button>
+
+                          <div className="flex items-center gap-6 text-white pr-12">
+                            {/* Icon */}
+                            <div className="flex-shrink-0 w-14 h-14 bg-white/20 rounded-xl flex items-center justify-center">
+                              <svg
+                                className="w-7 h-7"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                strokeWidth={2}
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"
+                                />
+                              </svg>
+                            </div>
+
+                            {/* Content - Responsive layout */}
+                            <div className="flex-1 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                              {/* Left section - Platform name */}
+                              <div className="flex items-center gap-3">
+                                <h3 className="text-xl font-bold">
+                                  {cashPayment.platform}
+                                </h3>
+                                <span className="px-3 py-1 bg-white/20 rounded-full text-xs font-semibold">
+                                  ✓ ACTIF
+                                </span>
+                              </div>
+
+                              {/* Right section - Cash details */}
+                              <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-white/90 text-sm font-medium">
+                                    {cashPayment.description ||
+                                      "Paiement en espèces"}
+                                  </span>
+                                  <span className="text-white/70 text-xs px-3 py-1 bg-white/10 rounded-full">
+                                    À la livraison
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                  </div>
+                </div>
+              )}
             </div>
           ) : (
             <div className="text-center py-16 bg-slate-50 rounded-xl border-2 border-dashed border-slate-300">
