@@ -292,11 +292,11 @@ userSchema.index({ isActive: 1, lastLogin: -1 });
 userSchema.index({ _id: 1, role: 1 });
 
 // Middleware avant la sauvegarde
-userSchema.pre("save", async function (next) {
+userSchema.pre("save", async function () {
   try {
     // Si le mot de passe n'a pas été modifié, passer à la suite
     if (!this.isModified("password")) {
-      return next();
+      return;
     }
 
     // Enregistrer la date de changement de mot de passe
@@ -316,15 +316,14 @@ userSchema.pre("save", async function (next) {
     // captureException(error, {
     //   tags: { component: 'user-model', operation: 'password-hashing' },
     // });
-    next(error);
+    throw error;
   }
 });
 
 // Middleware avant la mise à jour
-userSchema.pre("findOneAndUpdate", function (next) {
+userSchema.pre("findOneAndUpdate", function () {
   // Définir updatedAt à chaque mise à jour
   this.set({ updatedAt: Date.now() });
-  next();
 });
 
 // Méthode pour comparer le mot de passe

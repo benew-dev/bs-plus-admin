@@ -250,7 +250,7 @@ orderSchema.index({ paymentStatus: 1, createdAt: -1 });
 orderSchema.index({ createdAt: -1 });
 
 // Créer un identifiant unique au format ORD-YYYYMMDD-XXXXX
-orderSchema.pre("save", async function (next) {
+orderSchema.pre("save", async function () {
   if (this.isNew) {
     try {
       const date = new Date();
@@ -294,11 +294,10 @@ orderSchema.pre("save", async function (next) {
   }
 
   this.updatedAt = Date.now();
-  next();
 });
 
 // Vérifier la cohérence des données avant sauvegarde
-orderSchema.pre("save", function (next) {
+orderSchema.pre("save", function () {
   if (this.isModified("orderItems") || this.isNew) {
     const itemsTotal = this.orderItems.reduce(
       (sum, item) => sum + (item.subtotal || item.price * item.quantity),
@@ -314,8 +313,6 @@ orderSchema.pre("save", function (next) {
   ) {
     this.paidAt = Date.now();
   }
-
-  next();
 });
 
 // Mettre à jour le stock après création d'une commande
